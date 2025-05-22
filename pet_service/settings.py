@@ -30,15 +30,17 @@ SECRET_KEY = "django-insecure-*%y&tv1-!ru6$azw8u)2*%!syz5%s_nde)wi&3j+p)qucs(p-^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['paws-tails-production.up.railway.app']
+# ALLOWED_HOSTS = ['paws-tails-production.up.railway.app']
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://paws-tails-production.up.railway.app',
+    '*'
 ]
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-# SITE_URL = "http://127.0.0.1:8000"  # Для разработки
+SITE_URL = "http://127.0.0.1:8000"  # Для разработки
 # Или для продакшена:
-SITE_URL = 'https://paws-tails-production.up.railway.app'
+# SITE_URL = 'https://paws-tails-production.up.railway.app'
 # Application definition
 
 INSTALLED_APPS = [
