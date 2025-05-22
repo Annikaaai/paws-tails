@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Родословная {{ pet.name }}</title>
+    <style>
+
+        body {
+            font-family: Arial;
+            font-size: 12px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 18px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+        .generation {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Родословная {{ pet.name }}</h1>
+
+    <div>
+        <p><strong>Кличка:</strong> {{ pet.name }}</p>
+        <p><strong>Вид:</strong> {{ pet.get_species_display }}</p>
+        {% if pet.breed %}<p><strong>Порода:</strong> {{ pet.breed }}</p>{% endif %}
+        {% if pedigree.date_of_birth %}<p><strong>Дата рождения:</strong> {{ pedigree.date_of_birth|date:"d.m.Y" }}</p>{% endif %}
+    </div>
+
+    {% for generation, ancestors in ancestors_by_generation.items %}
+    <div class="generation">
+        <h3>Поколение {{ generation }}</h3>
+        <table>
+            <tr>
+                <th>Кличка</th>
+                <th>Порода</th>
+                <th>Рег. номер</th>
+                <th>Пол</th>
+            </tr>
+            {% for ancestor in ancestors %}
+            <tr>
+                <td>{{ ancestor.name }}</td>
+                <td>{{ ancestor.breed|default:"-" }}</td>
+                <td>{{ ancestor.registration_number|default:"-" }}</td>
+                <td>{% if ancestor.is_male %}Самец{% else %}Самка{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
+
+    <div style="margin-top: 30px; font-size: 10px; text-align: right;">
+        Сгенерировано: {% now "d.m.Y H:i" %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,249 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<style>
+    .favorites-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .favorites-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+    
+    .favorites-title {
+        font-size: 2rem;
+        color: #333;
+    }
+    
+    .favorites-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    
+    .empty-favorites {
+        text-align: center;
+        padding: 50px 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .empty-favorites p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 20px;
+    }
+    
+    .btn-continue-shopping {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+    
+    .btn-continue-shopping:hover {
+        background-color: #0069d9;
+    }
+    
+    /* Стили карточки товара */
+    .product-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    
+    .product-img {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover .product-img img {
+        transform: scale(1.05);
+    }
+
+    /* Стили для иконки избранного */
+    .favorite-heart {
+        text-decoration: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 2;
+        transition: all 0.3s ease;
+    }
+
+    .favorite-heart a {
+        color: #dc3545;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        text-decoration: none; /* Добавьте эту строку */
+    }
+
+    .favorite-heart:hover {
+        transform: scale(1.1);
+    }
+
+    .product-info {
+        padding: 20px;
+    }
+
+    .product-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .back-to-shopping {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        background-color: #f8f9fa;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        border: 1px solid #ddd;
+    }
+
+    .back-to-shopping:hover {
+        background-color: #e9ecef;
+        color: #0056b3;
+        border-color: #adb5bd;
+    }
+
+    .product-price {
+        font-size: 20px;
+        font-weight: bold;
+        color: #4b7bec;
+        margin-bottom: 15px;
+    }
+
+    .product-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-add-to-cart {
+        flex: 1;
+        text-align: center;
+        background-color: #4b7bec;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-add-to-cart:hover {
+        background-color: #3a6bd8;
+    }
+</style>
+
+<div class="favorites-container">
+    <div class="favorites-header">
+        <h1 class="favorites-title">Избранное</h1>
+        <a href="{% url 'product_list' %}" class="back-to-shopping">
+            <i class="fas fa-arrow-left"></i> К покупкам
+        </a>
+    </div>
+
+    {% if favorites %}
+    <div class="favorites-grid">
+        {% for favorite in favorites %}
+        <div class="product-card">
+            <div class="product-img">
+                <img src="{{ favorite.product.image.url }}" alt="{{ favorite.product.name }}">
+                <div class="favorite-heart">
+                    <a href="{% url 'toggle_favorite' favorite.product.id %}">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">{{ favorite.product.name }}</h3>
+                <div class="product-price">{{ favorite.product.price }} ₽</div>
+                <div class="product-actions">
+                    <a href="{% url 'add_to_cart' favorite.product.id %}" class="btn-add-to-cart">
+                        В корзину
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-favorites">
+        <p>В вашем списке избранного пока нет товаров</p>
+        <a href="{% url 'product_list' %}" class="btn-continue-shopping">Продолжить покупки</a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+// AJAX для удаления из избранного
+document.querySelectorAll('.favorite-heart a').forEach(heart => {
+    heart.addEventListener('click', async function(e) {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(this.href);
+            if (response.ok) {
+                // Удаляем карточку товара
+                this.closest('.product-card').remove();
+
+                // Если больше нет товаров, показываем сообщение
+                if (document.querySelectorAll('.product-card').length === 0) {
+                    document.querySelector('.favorites-grid').innerHTML = `
+                        <div class="empty-favorites">
+                            <p>В вашем списке избранного пока нет товаров</p>
+                            <a href="{% url 'product_list' %}" class="btn-continue-shopping">Продолжить покупки</a>
+                        </div>
+                    `;
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+});
+</script>
+{% endblock %}

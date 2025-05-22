@@ -1,0 +1,102 @@
+2025-05-15 17:30:47 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 17:30:49 INFO basehttp "GET / HTTP/1.1" 200 40408
+2025-05-15 17:30:49 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:49 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:50 INFO basehttp "GET / HTTP/1.1" 200 40408
+2025-05-15 17:30:50 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:50 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:51 INFO basehttp "GET /net HTTP/1.1" 200 41886
+2025-05-15 17:30:51 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:51 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:51 INFO basehttp "GET /market/ HTTP/1.1" 200 45105
+2025-05-15 17:30:51 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:51 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:52 INFO basehttp "GET /net HTTP/1.1" 200 41886
+2025-05-15 17:30:52 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:52 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:53 INFO basehttp "GET / HTTP/1.1" 200 40408
+2025-05-15 17:30:53 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:53 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:53 INFO basehttp "GET /net HTTP/1.1" 200 41886
+2025-05-15 17:30:54 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:54 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:54 INFO basehttp "GET /market/ HTTP/1.1" 200 45105
+2025-05-15 17:30:54 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:54 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:54 INFO basehttp "GET /food/ HTTP/1.1" 200 25215
+2025-05-15 17:30:54 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:54 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:55 INFO basehttp "GET /report-lost-pet/ HTTP/1.1" 200 13384
+2025-05-15 17:30:55 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:55 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:55 INFO basehttp "GET /products/ HTTP/1.1" 200 50325
+2025-05-15 17:30:55 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:55 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:56 INFO basehttp "GET /chats/ HTTP/1.1" 200 27662
+2025-05-15 17:30:56 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:56 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:56 INFO basehttp "GET /notifications/ HTTP/1.1" 200 16000
+2025-05-15 17:30:56 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:56 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:58 INFO basehttp "GET /net HTTP/1.1" 200 41886
+2025-05-15 17:30:58 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:58 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:58 INFO basehttp "GET /market/ HTTP/1.1" 200 45105
+2025-05-15 17:30:59 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:59 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:59 INFO basehttp "GET /report-lost-pet/ HTTP/1.1" 200 13384
+2025-05-15 17:30:59 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:30:59 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:30:59 INFO basehttp "GET /market/ HTTP/1.1" 200 45105
+2025-05-15 17:31:00 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:31:00 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:31:00 INFO basehttp "GET /net HTTP/1.1" 200 41886
+2025-05-15 17:31:00 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:31:00 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:31:00 INFO basehttp "GET / HTTP/1.1" 200 40408
+2025-05-15 17:31:00 WARNING log Not Found: /media/avatars/kot_s8uvq4f.jpg
+2025-05-15 17:31:00 WARNING basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 404 12591
+2025-05-15 17:31:31 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 17:31:33 INFO basehttp "GET / HTTP/1.1" 200 40408
+2025-05-15 17:31:33 INFO basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 200 72747
+2025-05-15 17:31:34 INFO basehttp "GET / HTTP/1.1" 200 40408
+2025-05-15 17:31:34 INFO basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 304 0
+2025-05-15 17:31:35 INFO basehttp "GET /net HTTP/1.1" 200 41886
+2025-05-15 17:31:35 INFO basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 304 0
+2025-05-15 17:31:36 INFO basehttp "GET /market/ HTTP/1.1" 200 45105
+2025-05-15 17:31:36 INFO basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 304 0
+2025-05-15 18:35:50 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 19:33:24 INFO autoreload D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_profile.py changed, reloading.
+2025-05-15 19:33:24 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 19:33:52 INFO autoreload D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_profile.py changed, reloading.
+2025-05-15 19:33:52 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 19:33:54 INFO basehttp "GET / HTTP/1.1" 200 40408
+2025-05-15 19:33:54 INFO basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 304 0
+2025-05-15 19:33:57 INFO basehttp "GET /profile/ HTTP/1.1" 200 45149
+2025-05-15 19:33:57 INFO basehttp "GET /static/images/avatars/default6.jpg HTTP/1.1" 304 0
+2025-05-15 19:33:58 INFO basehttp "GET /pet/1/ HTTP/1.1" 200 25079
+2025-05-15 19:34:00 INFO basehttp "GET /pet/1/pedigree/ HTTP/1.1" 200 28845
+2025-05-15 19:34:01 INFO basehttp "GET /pet/1/pedigree/download-pdf/ HTTP/1.1" 302 0
+2025-05-15 19:34:01 INFO basehttp "GET /pet/1/pedigree/ HTTP/1.1" 200 29222
+2025-05-15 19:34:03 INFO basehttp "GET /pet/1/pedigree/download-pdf/ HTTP/1.1" 302 0
+2025-05-15 19:34:03 INFO basehttp "GET /pet/1/pedigree/ HTTP/1.1" 200 29222
+2025-05-15 19:34:32 INFO autoreload D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_profile.py changed, reloading.
+2025-05-15 19:34:33 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 20:23:06 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 22:06:03 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 22:06:10 INFO autoreload D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_profile.py changed, reloading.
+2025-05-15 22:06:11 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 22:06:13 INFO basehttp "GET / HTTP/1.1" 200 43035
+2025-05-15 22:06:26 INFO basehttp "GET /profile/ HTTP/1.1" 200 47776
+2025-05-15 22:06:26 INFO basehttp "GET /static/images/avatars/default1.jpg HTTP/1.1" 304 0
+2025-05-15 22:06:26 INFO basehttp "GET /static/images/avatars/default3.jpg HTTP/1.1" 304 0
+2025-05-15 22:06:26 INFO basehttp "GET /static/images/avatars/default2.jpg HTTP/1.1" 304 0
+2025-05-15 22:06:26 INFO basehttp "GET /static/images/avatars/default4.jpg HTTP/1.1" 304 0
+2025-05-15 22:06:26 INFO basehttp "GET /static/images/avatars/default5.jpg HTTP/1.1" 304 0
+2025-05-15 22:06:26 INFO basehttp "GET /static/images/avatars/default6.jpg HTTP/1.1" 304 0
+2025-05-15 22:06:26 INFO basehttp "GET /media/pets/222230.png HTTP/1.1" 200 731350
+2025-05-15 22:06:28 INFO basehttp "GET /pet/1/ HTTP/1.1" 200 27706
+2025-05-15 22:06:29 INFO basehttp "GET /pet/1/pedigree/ HTTP/1.1" 200 31472
+2025-05-15 22:06:30 INFO basehttp "GET /pet/1/pedigree/download-pdf/ HTTP/1.1" 200 42806
+2025-05-15 22:08:26 INFO autoreload Watching for file changes with StatReloader
+2025-05-15 22:08:27 INFO basehttp "GET / HTTP/1.1" 200 43035

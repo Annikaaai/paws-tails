@@ -1,0 +1,59 @@
+
+<style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .image-preview {
+            max-height: 300px;
+            object-fit: contain;
+        }
+        .upload-area {
+            border: 2px dashed #dee2e6;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .upload-area:hover {
+            border-color: #0d6efd;
+            background-color: #f8f9fa;
+        }
+    </style>
+
+
+{% extends "base/base.html" %}
+{% block body-center %}
+{% if user.is_authenticated %}
+<div class = 'container'>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Создать новый пост</h5>
+            <form method="post" action="{% url 'create_post' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" name="title" class="form-control" placeholder="Заголовок" required>
+                </div>
+                <div class="mb-3">
+                    <textarea name="content" class="form-control" rows="3" placeholder="О чем хотите рассказать?" required></textarea>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <select name="pet" class="form-select">
+                            <option value="">Выберите питомца (необязательно)</option>
+                            {% for pet in user.pet_set.all %}
+                            <option value="{{ pet.id }}">{{ pet.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="file" name="image" class="form-control" accept="image/*">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Опубликовать</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+    {% endif %}
+{% endblock %}

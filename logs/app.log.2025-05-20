@@ -1,0 +1,1276 @@
+2025-05-20 17:39:44 ERROR log Internal Server Error: /chats/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+main.models.Chat.DoesNotExist: Chat matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 47, in chat_combined
+    return _handle_get_messages(request, chat_id, chats)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 96, in _handle_get_messages
+    chat = get_object_or_404(Chat, id=chat_id, participants=request.user)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 88, in get_object_or_404
+    raise Http404(
+django.http.response.Http404: No Chat matches the given query.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 85, in chat_combined
+    return render(request, "socials/error.html", status=500)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/error.html
+2025-05-20 17:39:53 ERROR log Internal Server Error: /chats/1/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+main.models.Chat.DoesNotExist: Chat matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 65, in chat_combined
+    current_chat = get_object_or_404(Chat, id=chat_id, participants=request.user, is_deleted=False)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 88, in get_object_or_404
+    raise Http404(
+django.http.response.Http404: No Chat matches the given query.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 85, in chat_combined
+    return render(request, "socials/error.html", status=500)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/error.html
+2025-05-20 17:39:56 ERROR log Internal Server Error: /chats/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+main.models.Message.DoesNotExist: Message matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 49, in chat_combined
+    return _handle_delete_message(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 131, in _handle_delete_message
+    message = get_object_or_404(Message, id=message_id, sender=request.user)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 88, in get_object_or_404
+    raise Http404(
+django.http.response.Http404: No Message matches the given query.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 85, in chat_combined
+    return render(request, "socials/error.html", status=500)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/error.html
+2025-05-20 17:39:58 ERROR log Internal Server Error: /chats/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+main.models.Message.DoesNotExist: Message matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 51, in chat_combined
+    return _handle_edit_message(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 147, in _handle_edit_message
+    message = get_object_or_404(Message, id=message_id, sender=request.user)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 88, in get_object_or_404
+    raise Http404(
+django.http.response.Http404: No Message matches the given query.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 85, in chat_combined
+    return render(request, "socials/error.html", status=500)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/error.html
+2025-05-20 17:40:01 WARNING log Bad Request: /chat/send/1/
+2025-05-20 17:47:47 INFO autoreload Watching for file changes with StatReloader
+2025-05-20 17:47:48 INFO basehttp "GET / HTTP/1.1" 200 43821
+2025-05-20 17:47:50 INFO basehttp "GET /report-lost-pet/ HTTP/1.1" 200 16797
+2025-05-20 17:47:57 WARNING log Not Found: /report-lost-pet/
+2025-05-20 17:47:57 WARNING basehttp "POST /report-lost-pet/ HTTP/1.1" 404 7615
+2025-05-20 17:48:07 WARNING log Not Found: /report-lost-pet/
+2025-05-20 17:48:07 WARNING basehttp "POST /report-lost-pet/ HTTP/1.1" 404 7615
+2025-05-20 17:48:38 INFO basehttp "GET /market/ HTTP/1.1" 200 48518
+2025-05-20 17:48:39 INFO basehttp "GET /net HTTP/1.1" 200 45201
+2025-05-20 17:48:39 INFO basehttp "GET /add_post HTTP/1.1" 301 0
+2025-05-20 17:48:40 INFO basehttp "GET /add_post/ HTTP/1.1" 200 17413
+2025-05-20 17:49:14 ERROR log Internal Server Error: /post/create/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_net.py", line 79, in create_post
+    return render(request, "socials/create_post.html", {"form": form, "pets": pets})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/create_post.html
+2025-05-20 17:49:14 ERROR basehttp "POST /post/create/ HTTP/1.1" 500 91043
+2025-05-20 18:15:23 ERROR log Internal Server Error: /chats/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+main.models.Chat.DoesNotExist: Chat matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 47, in chat_combined
+    return _handle_get_messages(request, chat_id, chats)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 96, in _handle_get_messages
+    chat = get_object_or_404(Chat, id=chat_id, participants=request.user)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 88, in get_object_or_404
+    raise Http404(
+django.http.response.Http404: No Chat matches the given query.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 85, in chat_combined
+    return render(request, "socials/error.html", status=500)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/error.html
+2025-05-20 18:15:32 ERROR log Internal Server Error: /chats/1/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+main.models.Chat.DoesNotExist: Chat matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 65, in chat_combined
+    current_chat = get_object_or_404(Chat, id=chat_id, participants=request.user, is_deleted=False)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 88, in get_object_or_404
+    raise Http404(
+django.http.response.Http404: No Chat matches the given query.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 85, in chat_combined
+    return render(request, "socials/error.html", status=500)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/error.html
+2025-05-20 18:15:35 ERROR log Internal Server Error: /chats/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+main.models.Message.DoesNotExist: Message matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 49, in chat_combined
+    return _handle_delete_message(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 131, in _handle_delete_message
+    message = get_object_or_404(Message, id=message_id, sender=request.user)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 88, in get_object_or_404
+    raise Http404(
+django.http.response.Http404: No Message matches the given query.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 85, in chat_combined
+    return render(request, "socials/error.html", status=500)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/error.html
+2025-05-20 18:15:37 ERROR log Internal Server Error: /chats/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 86, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 649, in get
+    raise self.model.DoesNotExist(
+main.models.Message.DoesNotExist: Message matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 51, in chat_combined
+    return _handle_edit_message(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 147, in _handle_edit_message
+    message = get_object_or_404(Message, id=message_id, sender=request.user)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 88, in get_object_or_404
+    raise Http404(
+django.http.response.Http404: No Message matches the given query.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py", line 85, in chat_combined
+    return render(request, "socials/error.html", status=500)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/error.html
+2025-05-20 18:15:40 WARNING log Bad Request: /chat/send/1/
+2025-05-20 18:16:24 ERROR log Internal Server Error: /chats/
+2025-05-20 18:16:33 ERROR log Internal Server Error: /chats/1/
+2025-05-20 18:16:36 ERROR log Internal Server Error: /chats/
+2025-05-20 18:16:37 ERROR log Internal Server Error: /chats/
+2025-05-20 18:16:41 WARNING log Bad Request: /chat/send/1/
+2025-05-20 19:54:16 WARNING log Not Found: /chats/
+2025-05-20 19:54:26 WARNING log Not Found: /chats/1/
+2025-05-20 19:54:29 WARNING log Not Found: /chats/
+2025-05-20 19:54:30 WARNING log Not Found: /chats/
+2025-05-20 19:54:33 WARNING log Bad Request: /chat/send/1/
+2025-05-20 19:57:23 WARNING log Not Found: /chats/1/
+2025-05-20 19:57:26 WARNING log Not Found: /chats/
+2025-05-20 19:58:33 WARNING log Not Found: /chats/1/
+2025-05-20 19:58:36 WARNING log Not Found: /chats/
+2025-05-20 20:43:50 WARNING log Not Found: /chats/1/
+2025-05-20 20:43:53 WARNING log Not Found: /chats/
+2025-05-20 20:59:45 WARNING log Not Found: /chats/1/
+2025-05-20 20:59:48 WARNING log Not Found: /chats/
+2025-05-20 21:03:50 ERROR log Internal Server Error: /cart/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 875, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_food.py", line 184, in cart_view
+    return render(request, "food/cart.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 326, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 242, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1059, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 710, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 842, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 885, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'image' attribute has no file associated with it.
+2025-05-20 21:03:54 ERROR log Internal Server Error: /favorites/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 875, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 326, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 242, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1059, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 710, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 842, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 885, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'image' attribute has no file associated with it.
+2025-05-20 21:03:57 ERROR log Internal Server Error: /product/test-product/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 875, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1059, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 710, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 842, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 885, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'image' attribute has no file associated with it.
+2025-05-20 21:03:58 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 875, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 242, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1059, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 710, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 842, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 885, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'image' attribute has no file associated with it.
+2025-05-20 21:03:59 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 875, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 242, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1059, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 710, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 842, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 885, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'image' attribute has no file associated with it.
+2025-05-20 21:03:59 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 875, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 242, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1059, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 710, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 842, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 885, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'image' attribute has no file associated with it.
+2025-05-20 21:03:59 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 875, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 242, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1059, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 710, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 842, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 885, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'image' attribute has no file associated with it.
+2025-05-20 21:04:00 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 875, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\defaulttags.py", line 242, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 1059, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 710, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 842, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\base.py", line 885, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'image' attribute has no file associated with it.
+2025-05-20 21:04:20 WARNING log Not Found: /chats/1/
+2025-05-20 21:04:23 WARNING log Not Found: /chats/
+2025-05-20 21:32:55 WARNING log Not Found: /chats/1/
+2025-05-20 21:32:58 WARNING log Not Found: /chats/
+2025-05-20 21:34:28 WARNING log Not Found: /chats/1/
+2025-05-20 21:34:31 WARNING log Not Found: /chats/
+2025-05-20 22:31:11 WARNING log Not Found: /chats/1/
+2025-05-20 22:31:14 WARNING log Not Found: /chats/
+2025-05-20 22:32:49 WARNING log Not Found: /chats/1/
+2025-05-20 22:32:52 WARNING log Not Found: /chats/
+2025-05-20 22:37:56 INFO autoreload Watching for file changes with StatReloader
+2025-05-20 22:37:57 INFO basehttp "GET / HTTP/1.1" 200 43821
+2025-05-20 22:37:59 INFO basehttp "GET /net HTTP/1.1" 200 45201
+2025-05-20 22:37:59 INFO basehttp "GET /market/ HTTP/1.1" 200 48518
+2025-05-20 22:38:00 INFO basehttp "GET /food/ HTTP/1.1" 200 28628
+2025-05-20 22:38:10 INFO basehttp "GET /net HTTP/1.1" 200 45201
+2025-05-20 22:38:23 INFO basehttp "GET /food/ HTTP/1.1" 200 28628
+2025-05-20 22:38:24 INFO basehttp "GET /market/ HTTP/1.1" 200 48518
+2025-05-20 22:38:24 INFO basehttp "GET /net HTTP/1.1" 200 45201
+2025-05-20 22:55:10 INFO autoreload Watching for file changes with StatReloader
+2025-05-20 22:55:12 INFO basehttp "GET / HTTP/1.1" 200 43821
+2025-05-20 22:55:14 INFO basehttp "GET /net HTTP/1.1" 200 45201
+2025-05-20 22:55:15 INFO basehttp "GET /food/ HTTP/1.1" 200 28628
+2025-05-20 22:55:16 INFO basehttp "GET /market/ HTTP/1.1" 200 48518
+2025-05-20 22:55:16 INFO basehttp "GET /food/ HTTP/1.1" 200 28628
+2025-05-20 22:55:17 INFO basehttp "GET /report-lost-pet/ HTTP/1.1" 200 16797
+2025-05-20 22:55:17 INFO basehttp "GET /products/ HTTP/1.1" 200 53739
+2025-05-20 22:55:17 INFO basehttp "GET /media/products/7358241440_dkwEAxw.webp HTTP/1.1" 304 0
+2025-05-20 22:55:17 INFO basehttp "GET /media/products/optimize.webp HTTP/1.1" 304 0
+2025-05-20 22:55:17 INFO basehttp "GET /media/products/7422671734.webp HTTP/1.1" 304 0
+2025-05-20 22:55:17 INFO basehttp "GET /media/products/i_x3rgClj.webp HTTP/1.1" 304 0
+2025-05-20 22:55:17 INFO basehttp "GET /media/products/purina-kuricz-zlak-750g-1_dySBaOK.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:17 INFO basehttp "GET /media/products/photo_2025-04-19_22-03-35.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:18 INFO basehttp "GET /chats/ HTTP/1.1" 200 31075
+2025-05-20 22:55:19 INFO basehttp "GET /notifications/ HTTP/1.1" 200 20966
+2025-05-20 22:55:19 INFO basehttp "GET /chats/ HTTP/1.1" 200 31075
+2025-05-20 22:55:20 INFO basehttp "GET /chats/1/ HTTP/1.1" 200 50770
+2025-05-20 22:55:20 INFO basehttp "GET /media/chat_images/001539.png HTTP/1.1" 304 0
+2025-05-20 22:55:20 INFO basehttp "GET /media/chat_images/6987295143.webp HTTP/1.1" 304 0
+2025-05-20 22:55:20 INFO basehttp "GET /media/chat_images/222230_XPoLyDz.png HTTP/1.1" 304 0
+2025-05-20 22:55:20 INFO basehttp "GET /media/chat_images/dog_0mloaFR.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:23 INFO basehttp "GET /chats/1/?last_message=38&action=get_messages HTTP/1.1" 200 47
+2025-05-20 22:55:26 INFO basehttp "GET /chats/1/?last_message=38&action=get_messages HTTP/1.1" 200 47
+2025-05-20 22:55:28 INFO basehttp "GET /profile/ HTTP/1.1" 200 48546
+2025-05-20 22:55:28 INFO basehttp "GET /media/pets/222230.png HTTP/1.1" 304 0
+2025-05-20 22:55:28 INFO basehttp "GET /media/pets/photo_2025-04-19_22-03-53.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:28 INFO basehttp "GET /static/images/avatars/default1.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:28 INFO basehttp "GET /static/images/avatars/default2.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:28 INFO basehttp "GET /static/images/avatars/default3.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:28 INFO basehttp "GET /static/images/avatars/default4.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:28 INFO basehttp "GET /static/images/avatars/default5.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:28 INFO basehttp "GET /static/images/avatars/default6.jpg HTTP/1.1" 304 0
+2025-05-20 22:55:32 INFO basehttp "GET /profile/edit/ HTTP/1.1" 200 24505
+2025-05-20 22:55:34 INFO basehttp "GET /profile/ HTTP/1.1" 200 48546
+2025-05-20 22:55:35 INFO basehttp "GET /pet/add/ HTTP/1.1" 200 33071
+2025-05-20 22:55:36 INFO basehttp "GET /profile/ HTTP/1.1" 200 48546
+2025-05-20 22:55:38 INFO basehttp "GET /pet/1/ HTTP/1.1" 200 28478
+2025-05-20 22:55:40 INFO basehttp "GET /pet/1/medical/add/ HTTP/1.1" 200 25019
+2025-05-20 22:55:42 INFO basehttp "GET /report-lost-pet/ HTTP/1.1" 200 16797
+2025-05-20 22:55:42 INFO basehttp "GET /food/ HTTP/1.1" 200 28628
+2025-05-20 22:55:43 INFO basehttp "GET /market/ HTTP/1.1" 200 48518
+2025-05-20 22:55:43 INFO basehttp "GET /net HTTP/1.1" 200 45201
+2025-05-20 23:00:26 INFO autoreload D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_chat.py changed, reloading.
+2025-05-20 23:00:27 INFO autoreload Watching for file changes with StatReloader
+2025-05-20 23:10:13 ERROR log Internal Server Error: /post/create/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_net.py", line 79, in create_post
+    return render(request, "socials/create_post.html", {"form": form, "pets": pets})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/create_post.html
+2025-05-20 23:10:13 ERROR log Internal Server Error: /post/create/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_net.py", line 79, in create_post
+    return render(request, "socials/create_post.html", {"form": form, "pets": pets})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/create_post.html
+2025-05-20 23:10:14 ERROR log Internal Server Error: /post/create/
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_net.py", line 79, in create_post
+    return render(request, "socials/create_post.html", {"form": form, "pets": pets})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: socials/create_post.html
+2025-05-20 23:10:15 WARNING log Bad Request: /delete_post/1/
+2025-05-20 23:10:16 WARNING log Forbidden: /delete_post/1/
+2025-05-20 23:10:17 WARNING log Bad Request: /follow/user1/
+2025-05-20 23:10:21 ERROR log Internal Server Error: /likes
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2117, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+TypeError: int() argument must be a string, a bytes-like object or a real number, not 'SimpleLazyObject'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\main\views_pages\f_net.py", line 60, in likes
+    posts = Post.objects.filter(likes=request.user).order_by("-created_at")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\sql\query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\sql\query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\sql\query.py", line 1559, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\sql\query.py", line 1389, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\related_lookups.py", line 156, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\MY_FILES\PYTHON\pet_service\venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2119, in get_prep_value
+    raise e.__class__(
+TypeError: Field 'id' expected a number but got <SimpleLazyObject: <django.contrib.auth.models.AnonymousUser object at 0x0000019B53F9B590>>.
+2025-05-20 23:10:42 WARNING log Not Found: /chats/1/
+2025-05-20 23:10:45 WARNING log Not Found: /chats/
+2025-05-20 23:15:48 WARNING log Bad Request: /delete_post/1/
+2025-05-20 23:15:48 WARNING log Forbidden: /delete_post/1/
+2025-05-20 23:15:50 WARNING log Bad Request: /follow/user1/
+2025-05-20 23:16:14 WARNING log Not Found: /chats/1/
+2025-05-20 23:16:18 WARNING log Not Found: /chats/

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ваш питомец {{ pet.name }} был найден!</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #f8f9fa; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .pet-info { background-color: #f0f8ff; padding: 15px; border-radius: 5px; }
+        .footer { margin-top: 20px; font-size: 0.9em; color: #6c757d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Ваш питомец {{ pet.name }} был найден!</h1>
+        </div>
+
+        <div class="content">
+            <p>Здравствуйте, {{ pet.owner.username }}!</p>
+
+            <div class="pet-info">
+                <h3>Информация о находке:</h3>
+                <p><strong>Место:</strong> {{ report.found_location }}</p>
+                <p><strong>Контактные данные нашедшего:</strong> {{ report.contact_info }}</p>
+            </div>
+
+            <p>Вы можете связаться с нашедшим или посмотреть подробности на нашем сайте:</p>
+            <p><a href="{{ site_url }}" style="color: #007bff;">Перейти на сайт</a></p>
+        </div>
+
+        <div class="footer">
+            <p>С уважением,<br>Команда сервиса</p>
+        </div>
+    </div>
+</body>
+</html>

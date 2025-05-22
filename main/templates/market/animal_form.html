@@ -1,0 +1,389 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Добавить объявление{% endblock %}
+
+{% block body-center %}
+    <style>
+        .create-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.2);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .form-check-input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+        
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .preview-container {
+            position: relative;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .form-section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        #id_additional_images {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .custom-file-upload:hover {
+            background-color: #e9ecef;
+        }
+        
+        .thumbnails-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .thumbnail-preview {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .remove-thumbnail {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        #id_category {
+            display: block !important;
+            opacity: 1 !important;
+            height: auto !important;
+        }
+    </style>
+
+    <div class="container py-5">
+        <div class="create-form">
+            <div class="form-header">
+                <h1>Добавить новое объявление</h1>
+                <p>Заполните все поля для публикации вашего объявления</p>
+            </div>
+            
+            <form method="post" enctype="multipart/form-data" id="animalForm">
+                {% csrf_token %}
+                
+                <div class="form-section">
+                    <h3 class="form-section-title">Основная информация</h3>
+                    
+                    <div class="form-group">
+                        <label for="id_title" class="form-label">Название объявления*</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="error-message">{{ form.title.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_category" class="form-label">Категория*</label>
+                        {{ form.category }}
+                        {% if form.category.errors %}
+                            <div class="error-message">{{ form.category.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_breed" class="form-label">Порода (необязательно)</label>
+                        {{ form.breed }}
+                        {% if form.breed.errors %}
+                            <div class="error-message">{{ form.breed.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_description" class="form-label">Описание*</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="error-message">{{ form.description.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="form-section-title">Фотографии</h3>
+                    
+                    <div class="form-group">
+                        <label for="id_main_image" class="form-label">Основное фото*</label>
+                        <div class="preview-container">
+                            <input type="file" name="main_image" accept="image/*" id="id_main_image" class="form-control">
+                            <img id="mainImagePreview" class="image-preview">
+                            <button type="button" class="remove-image" id="removeMainImage">×</button>
+                        </div>
+                        {% if form.main_image.errors %}
+                            <div class="error-message">{{ form.main_image.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="form-section-title">Подробности</h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_age" class="form-label">Возраст (месяцев)*</label>
+                                {{ form.age }}
+                                {% if form.age.errors %}
+                                    <div class="error-message">{{ form.age.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_gender" class="form-label">Пол*</label>
+                                {{ form.gender }}
+                                {% if form.gender.errors %}
+                                    <div class="error-message">{{ form.gender.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_animal_type" class="form-label">Тип животного*</label>
+                        {{ form.animal_type }}
+                        {% if form.animal_type.errors %}
+                            <div class="error-message">{{ form.animal_type.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_location" class="form-label">Местоположение*</label>
+                        {{ form.location }}
+                        {% if form.location.errors %}
+                            <div class="error-message">{{ form.location.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="form-section-title">Цена</h3>
+                    
+                    <div class="form-check">
+                        {{ form.is_free }}
+                        <label for="id_is_free" class="form-label">Отдать бесплатно</label>
+                    </div>
+                    
+                    <div class="form-group" id="priceField">
+                        <label for="id_price" class="form-label">Цена (₽)*</label>
+                        {{ form.price }}
+                        {% if form.price.errors %}
+                            <div class="error-message">{{ form.price.errors.as_text }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit">Опубликовать объявление</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Main image preview
+            $("#id_main_image").change(function() {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $("#mainImagePreview").attr("src", e.target.result).show();
+                        $("#removeMainImage").show();
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+            
+            $("#removeMainImage").click(function() {
+                $("#id_main_image").val("");
+                $("#mainImagePreview").attr("src", "").hide();
+                $(this).hide();
+            });
+            
+            // Additional images preview
+            $("#id_additional_images").change(function() {
+                $("#additionalThumbnails").empty();
+                if (this.files) {
+                    for (var i = 0; i < this.files.length; i++) {
+                        if (i >= 5) break; // Limit to 5 images
+                        
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var thumbnail = $(
+                                '<div class="thumbnail-preview-container">' +
+                                '<img src="' + e.target.result + '" class="thumbnail-preview">' +
+                                '<button type="button" class="remove-thumbnail">×</button>' +
+                                '</div>'
+                            );
+                            
+                            thumbnail.find(".remove-thumbnail").click(function() {
+                                $(this).parent().remove();
+                                updateFileInput();
+                            });
+                            
+                            $("#additionalThumbnails").append(thumbnail);
+                        }
+                        reader.readAsDataURL(this.files[i]);
+                    }
+                }
+            });
+            
+            function updateFileInput() {
+                // This would need a more complex implementation to actually remove files
+                // For simplicity, we'll just clear all and ask user to reselect
+                $("#additionalThumbnails").empty();
+                $("#id_additional_images").val("");
+            }
+            
+
+            
+            // Show/hide price field based on free checkbox
+            $("#id_is_free").change(function() {
+                if ($(this).is(":checked")) {
+                    $("#priceField").hide();
+                    $("#id_price").val("0");
+                } else {
+                    $("#priceField").show();
+                }
+            }).trigger("change");
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,658 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body-center %}
+
+    <style>
+        :root {
+            --primary: #00a884;
+            --primary-dark: #008c70;
+            --secondary: #2d3e50;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+
+        /* Search Section */
+        .search-section {
+            background-color: white;
+            padding: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 168, 132, 0.2);
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 0 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .search-bar button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .quick-filters {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            padding: 8px 15px;
+            background-color: var(--light-gray);
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-tag:hover, .filter-tag.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 25px;
+        }
+
+        /* Filters */
+        .filters {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .filter-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .price-range-container {
+            padding: 10px 0;
+        }
+
+        .price-range {
+            width: 100%;
+            margin: 15px 0;
+            accent-color: var(--primary);
+        }
+
+        .price-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .price-inputs input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .apply-filters {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .apply-filters:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Products */
+        .products {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-badge {
+            position: relative;
+            width: 100px;
+            text-align: center;
+            top: 12px;
+            left: 15px;
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .product-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .product-breed {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .product-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+
+        .product-free {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-to-cart {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .wishlist-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+            background-color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist-btn:hover {
+            background-color: var(--light-gray);
+        }
+
+        .wishlist-btn.active {
+            color: #ff4757;
+            border-color: #ff4757;
+            background-color: rgba(255, 71, 87, 0.1);
+        }
+
+        .price-inputs {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .price-inputs input {
+            flex: 1;  /* Равномерное распределение пространства */
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%;  /* Гарантирует, что input не вылезет */
+            box-sizing: border-box;  /* Учитывает padding в ширине */
+        }
+
+        /* Если нужно ограничить максимальную ширину */
+        .price-inputs input {
+            max-width: 120px;  /* Фиксированная ширина (опционально) */
+        }
+
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .filters {
+                width: 100%;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .add-to-cart, .wishlist-btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" placeholder="Найти животное, породу или питомник...">
+                    <button><i class="fas fa-search"></i> Найти</button>
+                </div>
+            </div>
+            <div class="quick-filters">
+                <div class="filter-tag active">Все животные</div>
+                <div class="filter-tag">Собаки</div>
+                <div class="filter-tag">Кошки</div>
+                <div class="filter-tag">Птицы</div>
+                <div class="filter-tag">Грызуны</div>
+                <div class="filter-tag">Рептилии</div>
+                <div class="filter-tag">Бесплатно</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="main-content">
+            <aside class="filters">
+                <div class="filter-card">
+                    <div class="filter-header">
+                        <h3 class="filter-title">Категории</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="dogs" checked>
+                            <label for="dogs">Собаки</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cats">
+                            <label for="cats">Кошки</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="rodents">
+                            <label for="rodents">Грызуны</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="birds">
+                            <label for="birds">Птицы</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="fish">
+                            <label for="fish">Рыбы</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="reptiles">
+                            <label for="reptiles">Рептилии</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-card">
+                    <div class="filter-header">
+                        <h3 class="filter-title">Тип животного</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="pedigree" checked>
+                            <label for="pedigree">Породистые</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="regular" checked>
+                            <label for="regular">Обычные</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-card">
+                  <div class="filter-header">
+                      <h3 class="filter-title">Цена</h3>
+                  </div>
+                  <div class="price-range-container">
+                      <input type="range" class="price-range" min="0" max="100000" step="1000" value="50000">
+                      <div class="price-inputs">
+                          <input type="number" placeholder="От" value="0" min="0">
+                          <input type="number" placeholder="До" value="50000" max="100000">
+                      </div>
+                  </div>
+              </div>
+
+                <div class="filter-card">
+                    <div class="filter-header">
+                        <h3 class="filter-title">Возраст</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="baby">
+                            <label for="baby">Детеныши (до 6 мес)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="young">
+                            <label for="young">Молодые (6 мес - 2 года)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="adult">
+                            <label for="adult">Взрослые (2+ года)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="apply-filters"><i class="fas fa-filter"></i> Применить фильтры</button>
+            </aside>
+
+            <main class="products">
+                <article class="product-card">
+
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1594149929911-78975a43d4f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Golden Retriever">
+
+                    </div><div class="product-badge">Породистый</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Золотистый ретривер</h3>
+                        <p class="product-breed">Порода: Golden Retriever</p>
+                        <div class="product-meta">
+                            <span class="product-meta-item"><i class="fas fa-map-marker-alt"></i> Москва</span>
+                            <span class="product-meta-item"><i class="fas fa-birthday-cake"></i> 3 мес</span>
+                            <span class="product-meta-item"><i class="fas fa-venus-mars"></i> Самец</span>
+                        </div>
+                        <p class="product-price">45 000 ₽</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> В корзину</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="British Shorthair">
+                    </div><div class="product-badge">Породистый</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Британский кот</h3>
+                        <p class="product-breed">Порода: British Shorthair</p>
+                        <div class="product-meta">
+                            <span class="product-meta-item"><i class="fas fa-map-marker-alt"></i> СПб</span>
+                            <span class="product-meta-item"><i class="fas fa-birthday-cake"></i> 5 мес</span>
+                            <span class="product-meta-item"><i class="fas fa-venus-mars"></i> Самка</span>
+                        </div>
+                        <p class="product-price">30 000 ₽</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> В корзину</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Parrot">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Волнистый попугай</h3>
+                        <p class="product-breed">Вид: Melopsittacus undulatus</p>
+                        <div class="product-meta">
+                            <span class="product-meta-item"><i class="fas fa-map-marker-alt"></i> Екатеринбург</span>
+                            <span class="product-meta-item"><i class="fas fa-birthday-cake"></i> 1 год</span>
+                            <span class="product-meta-item"><i class="fas fa-venus-mars"></i> Самец</span>
+                        </div>
+                        <p class="product-price">2 500 ₽</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> В корзину</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hamster">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Джунгарский хомяк</h3>
+                        <p class="product-breed">Вид: Phodopus sungorus</p>
+                        <div class="product-meta">
+                            <span class="product-meta-item"><i class="fas fa-map-marker-alt"></i> Новосибирск</span>
+                            <span class="product-meta-item"><i class="fas fa-birthday-cake"></i> 2 мес</span>
+                            <span class="product-meta-item"><i class="fas fa-venus-mars"></i> Самка</span>
+                        </div>
+                        <p class="product-price">1 200 ₽</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> В корзину</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+
+                    <div class="product-image">
+                        <img src="https://i.pinimg.com/originals/bd/29/e8/bd29e86a07ced071831729a3d7184bf2.jpg" alt="Siberian Husky">
+                    </div><div class="product-badge">Породистый</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Сибирский хаски</h3>
+                        <p class="product-breed">Порода: Siberian Husky</p>
+                        <div class="product-meta">
+                            <span class="product-meta-item"><i class="fas fa-map-marker-alt"></i> Казань</span>
+                            <span class="product-meta-item"><i class="fas fa-birthday-cake"></i> 4 мес</span>
+                            <span class="product-meta-item"><i class="fas fa-venus-mars"></i> Самец</span>
+                        </div>
+                        <p class="product-price">60 000 ₽</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> В корзину</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Domestic Cat">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Домашний кот</h3>
+                        <p class="product-breed">Обычный кот</p>
+                        <div class="product-meta">
+                            <span class="product-meta-item"><i class="fas fa-map-marker-alt"></i> Краснодар</span>
+                            <span class="product-meta-item"><i class="fas fa-birthday-cake"></i> 1.5 года</span>
+                            <span class="product-meta-item"><i class="fas fa-venus-mars"></i> Самец</span>
+                        </div>
+                        <p class="product-free">Бесплатно</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-paw"></i> Забрать</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Simple interactivity for demonstration
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const icon = this.querySelector('i');
+                if (this.classList.contains('active')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                }
+            });
+        });
+
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                document.querySelector('.filter-tag.active').classList.remove('active');
+                this.classList.add('active');
+            });
+        });
+    </script>
+{% endblock %}

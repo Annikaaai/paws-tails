@@ -1,0 +1,203 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body-center %}
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+    <div class ='d-flex justify-content-center align-items-center'>
+        <a href="/add_post" class="btn btn-primary mb-4 d-flex justify-content-center align-items-center" style = 'width: 100%; height: 40px; font-size: 17px;'>+ Создать пост</a>
+        <a href="{% url 'likes' %}" class="btn m-4 mt-0 btn-sm btn-danger d-flex justify-content-center align-items-center" style = 'width: 25%; height: 40px; font-size: 16px; color: white;'>
+            <i class="bi bi-heart-fill"></i>&nbspИзбранное
+        </a>
+    </div>
+
+    {% endif %}
+
+    <div class="row" data-masonry='{"percentPosition": true}'>
+        {% for post in posts %}
+        <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        {% if post.owner.get_profile.avatar_number %}
+                        <a href="{% url 'user_profile' post.owner.username %}" class="text-decoration-none text-dark">
+                            <img src="{{ post.owner.get_profile.get_avatar_url }}"
+                                 class="rounded-circle me-2"
+                                 width="32" height="32"
+                                 style="object-fit: cover;">
+                            <strong>{{ post.owner.username }}</strong>
+                        </a>
+                        {% endif %}
+                        {% if post.pet %}
+                        <span class="ms-2 text-muted">с питомцем {{ post.pet.name }}</span>
+                        {% endif %}
+                    </div>
+                    <small class="text-muted">{{ post.created_at|timesince }} назад</small>
+                </div>
+
+
+                {% if post.image %}
+                <a href="{% url 'post_detail' post.id %}">
+                <img src="{{ post.image.url }}" class="pet-post-image" alt="{{ post.title }}">
+                </a>
+                {% endif %}
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+
+                <div class="card-footer bg-transparent">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                               <a href="#" class="btn btn-sm btn-outline-danger like-btn" data-post-id="{{ post.id }}">
+                                    <i class="bi {% if user in post.likes.all %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                                    <span>{{ post.like_count }}</span>
+                               </a>
+                            <a href="{% url 'post_detail' post.id %}" class="btn btn-sm btn-outline-secondary ms-2">
+                                <i class="bi bi-chat"></i>
+                                <span>{{ post.comments.count }}</span>
+                            </a>
+                        </div>
+                        {% if user == post.owner %}
+                        <button class="btn btn-sm btn-outline-danger" onclick="confirmDeletePost({{ post.id }})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">Пока нет постов. Будьте первым!</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+<script>
+// Masonry инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    var grid = document.querySelector('.row');
+    var msnry = new Masonry(grid, {
+        itemSelector: '.col-sm-6',
+        percentPosition: true
+    });
+});
+function showToast(message, isError = false) {
+    // Удаляем предыдущие уведомления
+    const oldToasts = document.querySelectorAll('.custom-toast');
+    oldToasts.forEach(toast => toast.remove());
+
+    const toast = document.createElement('div');
+    toast.className = `custom-toast alert alert-${isError ? 'danger' : 'success'}`;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.right = '20px';
+    toast.style.zIndex = '10000';
+    toast.style.maxWidth = '300px';
+    toast.style.wordBreak = 'break-word';
+    toast.innerHTML = `
+        <button type="button" class="btn-close" onclick="this.parentElement.remove()" style="float: right"></button>
+        ${message}
+    `;
+
+    document.body.appendChild(toast);
+
+    // Автоматическое исчезновение через 5 секунд
+    setTimeout(() => {
+        toast.style.transition = 'opacity 0.5s';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 500);
+    }, 5000);
+}
+document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const postId = this.getAttribute('data-post-id');
+        const likeIcon = this.querySelector('i');
+        const likeCount = this.querySelector('span');
+
+        fetch(`/like_post/${postId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.liked) {
+                likeIcon.classList.remove('bi-heart');
+                likeIcon.classList.add('bi-heart-fill');
+            } else {
+                likeIcon.classList.remove('bi-heart-fill');
+                likeIcon.classList.add('bi-heart');
+            }
+            likeCount.textContent = data.like_count;
+        });
+    });
+});
+
+
+
+function confirmDeletePost(postId) {
+    if (confirm('Вы уверены, что хотите удалить этот пост?')) {
+        // Показываем индикатор загрузки на всех кнопках удаления этого поста
+        document.querySelectorAll(`[onclick="confirmDeletePost(${postId})"]`).forEach(btn => {
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
+            btn.disabled = true;
+        });
+
+        fetch(`/delete_post/${postId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Accept': 'application/json',
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка сети');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Показываем уведомление об успехе
+                showToast(data.message || 'Пост удален');
+
+                // Перенаправляем или обновляем страницу
+                if (data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    window.location.reload();
+                }
+            } else {
+                throw new Error(data.error || 'Неизвестная ошибка');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Восстанавливаем кнопки
+            document.querySelectorAll(`[onclick="confirmDeletePost(${postId})"]`).forEach(btn => {
+                btn.innerHTML = '<i class="bi bi-trash"></i>';
+                btn.disabled = false;
+            });
+            // Показываем ошибку
+            showToast(error.message, true);
+        });
+    }
+}
+</script>
+<style>
+    .pet-post-image {
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+{% endblock %}

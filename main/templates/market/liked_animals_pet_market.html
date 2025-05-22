@@ -1,0 +1,190 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body-center %}
+    <style>
+        .back-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        margin-top: 0px;
+    }
+
+    .back-title {
+        font-size: 2rem;
+        color: #333;
+    }
+    .back-to-page {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        background-color: #f8f9fa;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        border: 1px solid #ddd;
+    }
+        .liked-animals-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #2d3e50;
+            text-align: center;
+        }
+
+        .liked-animals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .no-likes-message {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #6c757d;
+        }
+
+        /* Используем стили из animal_list.html для карточек */
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-info {
+            padding: 18px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00a884;
+            margin: 10px 0;
+        }
+
+        .remove-like-btn {
+            background: none;
+            border: none;
+            color: #ff4757;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+
+    <div class="liked-animals-container">
+        <div class="back-header">
+        <h1 class="back-title">Мои избранные животные</h1>
+        <a href="/market/" class="back-to-page">
+            <i class="fas fa-arrow-left"></i> Назад
+        </a>
+    </div>
+        
+        {% if liked_animals %}
+            <div class="liked-animals-grid">
+                {% for animal in liked_animals %}
+                    <div class="product-card">
+                        <div class="product-image">
+                            <a href="{{ animal.get_absolute_url }}">
+                                <img src="{{ animal.main_image.url }}" alt="{{ animal.title }}">
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">
+                                <a href="{{ animal.get_absolute_url }}">{{ animal.title }}</a>
+                            </h3>
+                            <p class="product-breed">
+                                {% if animal.breed %}
+                                    Порода: {{ animal.breed }}
+                                {% else %}
+                                    Без породы
+                                {% endif %}
+                            </p>
+                            {% if animal.is_free %}
+                                <p class="product-free">Бесплатно</p>
+                            {% else %}
+                                <p class="product-price">{{ animal.price }} ₽</p>
+                            {% endif %}
+                            <button class="remove-like-btn" data-animal-id="{{ animal.id }}">
+                                <i class="fas fa-heart"></i> Удалить из избранного
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-likes-message">
+                <p>У вас пока нет избранных животных.</p>
+                <a href="{% url 'animal_list' %}" class="btn btn-primary mt-3">Найти животных</a>
+            </div>
+        {% endif %}
+    </div>
+    
+    <script>
+        // Удаление из избранного
+        document.querySelectorAll('.remove-like-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const animalId = this.getAttribute('data-animal-id');
+                const card = this.closest('.product-card');
+                
+                fetch(`/unlike/${animalId}/`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        card.remove();
+                        
+                        // Если больше нет карточек, показываем сообщение
+                        if (document.querySelectorAll('.product-card').length === 0) {
+                            document.querySelector('.liked-animals-grid').innerHTML = `
+                                <div class="no-likes-message">
+                                    <p>У вас пока нет избранных животных.</p>
+                                    <a href="{% url 'animal_list' %}" class="btn btn-primary mt-3">Найти животных</a>
+                                </div>
+                            `;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

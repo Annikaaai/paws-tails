@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+
+{% block body-center %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h4>Все пользователи</h4>
+        </div>
+        <div class="card-body">
+            <div class="list-group">
+                {% for user in users %}
+                <a href="{% url 'start_chat' user.id %}" class="list-group-item list-group-item-action">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ user.get_profile.get_avatar_url }}"
+                             class="rounded-circle me-3" 
+                             width="40" height="40"
+                             style="object-fit: cover;">
+                        <div>
+                            <h5 class="mb-1">{{ user.username }}</h5>
+                            {% if user.get_profile.bio %}
+                            <p class="mb-1 text-muted">{{ user.get_profile.bio|truncatechars:50 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

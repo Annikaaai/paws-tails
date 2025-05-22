@@ -1,0 +1,772 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body-center %}
+    <style>
+        :root {
+            --primary: #00a884;
+            --primary-dark: #008c70;
+            --secondary: #2d3e50;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .wishlist-btn .like-count {
+            margin-left: 5px;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .wishlist-btn.active .like-count {
+            color: #ff4757;
+        }
+
+        /* Search Section */
+        .search-section {
+            background-color: white;
+            padding: 25px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 168, 132, 0.2);
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 0 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .search-bar button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .quick-filters {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            padding: 8px 15px;
+            background-color: var(--light-gray);
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-tag:hover, .filter-tag.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start; /* Важно: выравниваем по верху */
+        }
+
+        /* Filters */
+        .filters {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .filter-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .price-range-container {
+            padding: 10px 0;
+        }
+
+        .price-range {
+            width: 100%;
+            margin: 15px 0;
+            accent-color: var(--primary);
+        }
+
+        .price-inputs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .price-inputs input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .apply-filters {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .apply-filters:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Products */
+        .products {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            align-content: start; /* Выравниваем содержимое по верху */
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: auto; /* Убираем фиксированную высоту */
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-badge {
+            position: relative;
+            width: 100px;
+            text-align: center;
+            top: 12px;
+            left: 15px;
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .product-image {
+            height: 200px; /* Можно оставить фиксированную высоту изображения */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: auto; /* Убираем минимальную высоту */
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .product-breed {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .product-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            margin-top: auto;
+        }
+
+        .product-free {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-to-cart {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+        .wishlist-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+            background-color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist-btn:hover {
+            background-color: var(--light-gray);
+        }
+
+        .wishlist-btn.active {
+            color: #ff4757;
+            border-color: #ff4757;
+            background-color: rgba(255, 71, 87, 0.1);
+        }
+
+        .price-inputs {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .price-inputs input {
+            flex: 1;  /* Равномерное распределение пространства */
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%;  /* Гарантирует, что input не вылезет */
+            box-sizing: border-box;  /* Учитывает padding в ширине */
+        }
+
+        /* Если нужно ограничить максимальную ширину */
+        .price-inputs input {
+            max-width: 120px;  /* Фиксированная ширина (опционально) */
+        }
+
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .filters {
+                width: 100%;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 768px) {
+            .product-image {
+                height: 150px; /* Уменьшаем высоту изображения на мобильных */
+            }
+
+            .product-info {
+                padding: 12px;
+            }
+        }
+        @media (max-width: 576px) {
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .add-to-cart, .wishlist-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+    
+    <section class="search-section">
+        <div class="container">
+            <form method="get" action="{% url 'animal_list' %}">
+                <div class="search-container">
+                    <div class="search-bar">
+                        <input type="text" name="q" value="{{ search_query }}" placeholder="Найти животное, породу или питомник...">
+                        <button type="submit"><i class="fas fa-search"></i> Найти</button>
+                    </div>
+                </div>
+                <div class="quick-filters">
+                    <!-- Кнопка "Все животные" -->
+                    <a href="{% url 'animal_list' %}"
+                       class="filter-tag {% if not selected_category and not free_only %}active{% endif %}">
+                        Все животные
+                    </a>
+
+                    <!-- Кнопки категорий -->
+                    <a href="?category=dogs"
+                       class="filter-tag {% if selected_category == 'dogs' %}active{% endif %}">
+                        Собаки
+                    </a>
+                    <a href="?category=cats"
+                       class="filter-tag {% if selected_category == 'cats' %}active{% endif %}">
+                        Кошки
+                    </a>
+                    <a href="?category=birds"
+                       class="filter-tag {% if selected_category == 'birds' %}active{% endif %}">
+                        Птицы
+                    </a>
+                    <a href="?category=rodents"
+                       class="filter-tag {% if selected_category == 'rodents' %}active{% endif %}">
+                        Грызуны
+                    </a>
+                    <a href="?category=reptiles"
+                       class="filter-tag {% if selected_category == 'reptiles' %}active{% endif %}">
+                        Рептилии
+                    </a>
+
+                    <!-- Фильтр по бесплатным -->
+                    <a href="?free_only=1"
+                       class="filter-tag {% if free_only %}active{% endif %}">
+                        Бесплатно
+                    </a>
+
+                    <!-- Дополнительные фильтры (пример) -->
+                    <a href="?type=pedigree"
+                       class="filter-tag {% if selected_type == 'pedigree' %}active{% endif %}">
+                        Породистые
+                    </a>
+                    <a href="?age_group=baby"
+                       class="filter-tag {% if selected_age_group == 'baby' %}active{% endif %}">
+                        Детеныши
+                    </a>
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'vendor_dashboard_pet_market' %}">
+                            <i class="fas fa-paw"></i> Мои питомцы
+                        </a>
+                    <a class="nav-link" href="{% url 'liked_animals_pet_market' %}">
+                        <i class="fas fa-heart"></i> Избранное
+                        <span class="badge bg-primary" id="nav-likes-count">
+                            {% if user.is_authenticated %}{{ user.liked_animals_pet_market.count }}{% else %}0{% endif %}
+                        </span>
+                    </a>
+                    {% endif %}
+
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="main-content">
+            <aside class="filters">
+                <form method="get" action="{% url 'animal_list' %}">
+                    <input type="hidden" name="q" value="{{ search_query }}">
+                    <input type="hidden" name="category" value="{{ selected_category }}">
+                    
+                    <div class="filter-card">
+                        <div class="filter-header">
+                            <h3 class="filter-title">Тип животного</h3>
+                        </div>
+                        <div class="filter-options">
+                            {% for value, label in type_choices %}
+                            <div class="filter-option">
+                                <input type="radio" id="type_{{ value }}" name="type" value="{{ value }}"
+                                       {% if selected_type == value %}checked{% endif %}>
+                                <label for="type_{{ value }}">{{ label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="filter-card">
+                        <div class="filter-header">
+                            <h3 class="filter-title">Цена</h3>
+                        </div>
+                        <div class="price-range-container">
+                            <input type="range" class="price-range" min="0" max="100000" step="1000"
+                                   value="{{ max_price }}" oninput="updatePriceInputs(this.value)">
+                            <div class="price-inputs">
+                                <input type="number" name="min_price" placeholder="От" value="{{ min_price }}" min="0">
+                                <input type="number" name="max_price" placeholder="До" value="{{ max_price }}" max="100000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-card">
+                        <div class="filter-header">
+                            <h3 class="filter-title">Возраст</h3>
+                        </div>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <input type="radio" id="age_all" name="age_group" value=""
+                                       {% if not selected_age_group %}checked{% endif %}>
+                                <label for="age_all">Все возрасты</label>
+                            </div>
+
+                            {% for value, label in age_group_choices %}
+                            <div class="filter-option">
+                                <input type="radio" id="age_{{ value }}" name="age_group" value="{{ value }}"
+                                       {% if selected_age_group == value %}checked{% endif %}>
+                                <label for="age_{{ value }}">{{ label }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="apply-filters"><i class="fas fa-filter"></i> Применить фильтры</button>
+                </form>
+            </aside>
+
+            <main class="products">
+                {% for animal in animals %}
+                    <article class="product-card">
+                        <div class="product-image">
+                            <a href="{{ animal.get_absolute_url }}">
+                                <img src="{{ animal.main_image.url }}" alt="{{ animal.title }}">
+                            </a>
+                        </div>
+                        {% if animal.animal_type == 'pedigree' %}
+                            <div class="product-badge">Породистый</div>
+                        {% endif %}
+                        <div class="product-info">
+                            <h3 class="product-title">
+                                <a href="{{ animal.get_absolute_url }}">{{ animal.title }}</a>
+                            </h3>
+                            <p class="product-breed">
+                                {% if animal.breed %}  <!-- Просто проверяем наличие породы -->
+                                    Порода: {{ animal.breed }}  <!-- Выводим текстовое поле breed -->
+                                {% else %}
+                                    Без породы  <!-- Или любое другое значение по умолчанию -->
+                                {% endif %}
+                            </p>
+                            <div class="product-meta">
+                                <span class="product-meta-item"><i class="fas fa-map-marker-alt"></i> {{ animal.location }}</span>
+                                <span class="product-meta-item"><i class="fas fa-birthday-cake"></i> {{ animal.get_age_display }}</span>
+                                <span class="product-meta-item"><i class="fas fa-venus-mars"></i> {{ animal.get_gender_display }}</span>
+                            </div>
+                            {% if animal.is_free %}
+                                <p class="product-free">Бесплатно</p>
+                            {% else %}
+                                <p class="product-price">{{ animal.price }} ₽</p>
+                            {% endif %}
+                            <div class="product-actions">
+                                <a href="{% url 'start_chat' animal.seller.id %}" class="add-to-cart">
+                                    <i class="fas fa-comment-dots"></i> Написать продавцу
+                                </a>
+                                <button class="wishlist-btn {% if request.user in animal.likes_pet_market.all %}active{% endif %}"
+                                        data-animal-id="{{ animal.id }}"
+                                        data-liked="{% if request.user in animal.likes_pet_market.all %}true{% else %}false{% endif %}">
+                                    <i class="{% if request.user in animal.likes_pet_market.all %}fas{% else %}far{% endif %} fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">Животные по вашему запросу не найдены.</div>
+                    </div>
+                {% endfor %}
+            </main>
+        </div>
+        
+<!--        {% if is_paginated %}-->
+<!--            <div class="pagination mt-4">-->
+<!--                <nav aria-label="Page navigation">-->
+<!--                    <ul class="pagination justify-content-center">-->
+<!--                        {% if page_obj.has_previous %}-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Previous">-->
+<!--                                    <span aria-hidden="true">&laquo;</span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        {% endif %}-->
+<!--                        -->
+<!--                        {% for num in page_obj.paginator.page_range %}-->
+<!--                            {% if page_obj.number == num %}-->
+<!--                                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>-->
+<!--                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}-->
+<!--                                <li class="page-item"><a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a></li>-->
+<!--                            {% endif %}-->
+<!--                        {% endfor %}-->
+<!--                        -->
+<!--                        {% if page_obj.has_next %}-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Next">-->
+<!--                                    <span aria-hidden="true">&raquo;</span>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        {% endif %}-->
+<!--                    </ul>-->
+<!--                </nav>-->
+<!--            </div>-->
+<!--        {% endif %}-->
+    </div>
+
+
+<script>
+
+    document.querySelectorAll('.filter-option input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.getElementById('animalForm').submit();
+        });
+    });
+
+    function updatePriceInputs(maxValue) {
+        document.querySelector('input[name="max_price"]').value = maxValue;
+        document.getElementById('animalForm').submit();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const maxPriceInput = document.querySelector('input[name="max_price"]');
+        const priceRange = document.querySelector('.price-range');
+
+        if (maxPriceInput && priceRange) {
+            priceRange.value = maxPriceInput.value;
+
+            priceRange.addEventListener('input', function() {
+                maxPriceInput.value = this.value;
+            });
+
+            maxPriceInput.addEventListener('change', function() {
+                if (parseInt(this.value) > parseInt(this.max)) {
+                    this.value = this.max;
+                }
+                priceRange.value = this.value;
+            });
+        }
+    });
+
+    function updatePriceInputs(maxValue) {
+        document.querySelector('input[name="max_price"]').value = maxValue;
+    }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const maxPriceInput = document.querySelector('input[name="max_price"]');
+            const priceRange = document.querySelector('.price-range');
+
+            if (maxPriceInput && priceRange) {
+                priceRange.value = maxPriceInput.value;
+
+                priceRange.addEventListener('input', function() {
+                    maxPriceInput.value = this.value;
+                });
+
+                maxPriceInput.addEventListener('change', function() {
+                    if (parseInt(this.value) > parseInt(this.max)) {
+                        this.value = this.max;
+                    }
+                    priceRange.value = this.value;
+                });
+            }
+
+        });
+
+
+// Wishlist button functionality
+document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', async function() {
+        // Проверяем авторизацию
+        {% if not user.is_authenticated %}
+            window.location.href = "{% url 'login' %}?next={{ request.path }}";
+            return;
+        {% endif %}
+
+        const animalId = this.getAttribute('data-animal-id');
+        const isLiked = this.getAttribute('data-liked') === 'true';
+        const icon = this.querySelector('i');
+        const likeCount = this.querySelector('.like-count');
+
+        try {
+            const response = await fetch(isLiked ? `/unlike/${animalId}/` : `/like/${animalId}/`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                // Обновляем состояние кнопки
+                this.classList.toggle('active');
+                this.setAttribute('data-liked', !isLiked);
+
+                // Обновляем иконку
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+
+                // Обновляем счетчик лайков на кнопке
+                if (likeCount) {
+                    likeCount.textContent = data.likes_count;
+                }
+
+                // Обновляем счетчик в навигации
+                const navBadge = document.querySelector('#nav-likes-count');
+                if (navBadge) {
+                    navBadge.textContent = data.user_likes_count;
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+});
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // Проверяем, какие животные уже лайкнуты
+    {% if user.is_authenticated %}
+        const likedAnimals = [
+            {% for like in user.liked_animals_pet_market.all %}
+                {{ like.animal.id }},
+            {% endfor %}
+        ];
+
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            const animalId = parseInt(btn.getAttribute('data-animal-id'));
+            if (likedAnimals.includes(animalId)) {
+                btn.classList.add('active');
+                btn.setAttribute('data-liked', 'true');
+                const icon = btn.querySelector('i');
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+            }
+        });
+    {% endif %}
+});
+    </script>
+{% endblock %}

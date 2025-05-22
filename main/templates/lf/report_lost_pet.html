@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Сообщить о найденном питомце</h2>
+    <p>Если вы нашли чужого питомца, заполните эту форму. Владелец будет уведомлен.</p>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_pet_id" class="form-label">ID питомца</label>
+                    <input type="number" name="pet_id" class="form-control {% if form.pet_id.errors %}is-invalid{% endif %}" id="id_pet_id" required>
+                    {% if form.pet_id.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.pet_id.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_found_location" class="form-label">Где нашли питомца</label>
+                    <textarea name="found_location" class="form-control" id="id_found_location" rows="3" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_contact_info" class="form-label">Ваши контактные данные (не обязательно)</label>
+                    <textarea name="contact_info" class="form-control" id="id_contact_info" rows="2"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Отправить уведомление</button>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

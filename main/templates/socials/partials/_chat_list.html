@@ -1,0 +1,55 @@
+{% load static %}
+
+<div class="chat-list">
+    <div class="p-3 border-bottom">
+        <h5 class="mb-0">Мои чаты</h5>
+    </div>
+    <div class="list-group list-group-flush">
+        {% for chat, unread_count in chats_with_unread %}
+        <a href="{% url 'chat_detail' chat.id %}"
+           class="list-group-item list-group-item-action chat-list-item {% if chat.id == current_chat.id %}active{% endif %} position-relative">
+            {% if unread_count > 0 %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ unread_count }}
+            </span>
+            {% endif %}
+
+            <div class="d-flex align-items-center">
+                {% for user in chat.participants.all %}
+                    {% if user != request.user %}
+                    <img src="{{ user.get_profile.get_avatar_url }}"
+                         class="rounded-circle me-3"
+                         width="40" height="40"
+                         style="object-fit: cover;">
+                    {% endif %}
+                {% endfor %}
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="mb-1">
+                            {% for user in chat.participants.all %}
+                                {% if user != request.user %}{{ user.username }}{% endif %}
+                            {% endfor %}
+                        </h6>
+                        <small class="text-muted">{{ chat.updated_at|timesince }} назад</small>
+                    </div>
+                    <p class="mb-1 text-muted text-truncate">
+                        {% if chat.get_last_message %}
+                            {% if chat.get_last_message.sender == request.user %}
+                                Вы: {% if chat.get_last_message.is_deleted %}<em>Сообщение удалено</em>{% else %}{{ chat.get_last_message.content|truncatechars:30 }}{% endif %}
+                            {% else %}
+                                {{ chat.get_last_message.sender.username }}: {% if chat.get_last_message.is_deleted %}<em>Сообщение удалено</em>{% else %}{{ chat.get_last_message.content|truncatechars:30 }}{% endif %}
+                            {% endif %}
+                        {% else %}
+                            Чат создан
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <div class="p-3 text-center text-muted">
+            У вас пока нет чатов
+        </div>
+        {% endfor %}
+    </div>
+</div>

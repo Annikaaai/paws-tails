@@ -1,0 +1,236 @@
+2025-05-16 00:10:15 INFO autoreload Watching for file changes with StatReloader
+2025-05-16 00:10:19 INFO basehttp "GET / HTTP/1.1" 200 42624
+2025-05-16 01:14:43 INFO autoreload Watching for file changes with StatReloader
+2025-05-16 01:14:51 INFO basehttp "GET / HTTP/1.1" 200 42624
+2025-05-16 01:14:58 INFO basehttp "GET /net HTTP/1.1" 200 41335
+2025-05-16 01:14:59 INFO basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 200 72747
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-47.jpg HTTP/1.1" 200 29231
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-46.jpg HTTP/1.1" 200 78856
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-35.jpg HTTP/1.1" 200 127355
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-50.jpg HTTP/1.1" 200 142250
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-48.jpg HTTP/1.1" 200 72853
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-51.jpg HTTP/1.1" 200 51229
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-52.jpg HTTP/1.1" 200 129505
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-54.jpg HTTP/1.1" 200 87475
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-04-16.jpg HTTP/1.1" 200 45558
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-53.jpg HTTP/1.1" 200 181948
+2025-05-16 01:14:59 INFO basehttp "GET /media/posts/kot.jpg HTTP/1.1" 200 72747
+2025-05-16 01:14:59 INFO basehttp "GET /media/avatars/001539.png HTTP/1.1" 200 529901
+2025-05-16 01:15:05 INFO basehttp "GET /market HTTP/1.1" 301 0
+2025-05-16 01:15:05 INFO basehttp "GET /market/ HTTP/1.1" 200 46351
+2025-05-16 01:15:05 INFO basehttp "GET /media/animal_listings/photo_2025-04-19_22-03-48.jpg HTTP/1.1" 200 72853
+2025-05-16 01:15:05 INFO basehttp "GET /media/animal_listings/bd29e86a07ced071831729a3d7184bf2.jpg HTTP/1.1" 200 36815
+2025-05-16 01:15:05 INFO basehttp "GET /media/animal_listings/222230.png HTTP/1.1" 200 731350
+2025-05-16 01:15:05 INFO basehttp "GET /media/animal_listings/photo_2025-04-19_22-03-54_xQhizgn.jpg HTTP/1.1" 200 87475
+2025-05-16 01:15:05 INFO basehttp "GET /media/animal_listings/001830.png HTTP/1.1" 200 788615
+2025-05-16 01:15:08 INFO basehttp "GET /food/ HTTP/1.1" 200 27431
+2025-05-16 01:15:09 INFO basehttp "GET /report-lost-pet HTTP/1.1" 301 0
+2025-05-16 01:15:09 INFO basehttp "GET /report-lost-pet/ HTTP/1.1" 200 15600
+2025-05-16 01:15:14 INFO basehttp "GET /products HTTP/1.1" 301 0
+2025-05-16 01:15:14 INFO basehttp "GET /products/ HTTP/1.1" 200 52487
+2025-05-16 01:15:15 INFO basehttp "GET /media/products/i_x3rgClj.webp HTTP/1.1" 200 13270
+2025-05-16 01:15:15 INFO basehttp "GET /media/products/7358241440_dkwEAxw.webp HTTP/1.1" 200 62832
+2025-05-16 01:15:15 INFO basehttp "GET /media/products/optimize.webp HTTP/1.1" 200 182600
+2025-05-16 01:15:15 INFO basehttp "GET /media/products/purina-kuricz-zlak-750g-1_dySBaOK.jpg HTTP/1.1" 200 239741
+2025-05-16 01:15:15 INFO basehttp "GET /media/products/photo_2025-04-19_22-03-35.jpg HTTP/1.1" 200 127355
+2025-05-16 01:15:15 INFO basehttp "GET /media/products/7422671734.webp HTTP/1.1" 200 72740
+2025-05-16 01:15:16 INFO basehttp "GET /chats HTTP/1.1" 301 0
+2025-05-16 01:15:16 INFO basehttp "GET /chats/ HTTP/1.1" 302 0
+2025-05-16 01:15:16 INFO basehttp "GET /accounts/login/?next=/chats/ HTTP/1.1" 200 19676
+2025-05-16 01:18:16 INFO autoreload Watching for file changes with StatReloader
+2025-05-16 01:18:23 INFO basehttp "GET /accounts/login/?next=/chats/ HTTP/1.1" 200 19676
+2025-05-16 01:18:25 INFO basehttp "GET / HTTP/1.1" 200 42624
+2025-05-16 01:18:27 INFO basehttp "GET /registration/ HTTP/1.1" 200 19871
+2025-05-16 01:18:32 INFO basehttp "GET / HTTP/1.1" 200 42624
+2025-05-16 01:18:33 INFO basehttp "GET /net HTTP/1.1" 200 41335
+2025-05-16 01:18:35 INFO basehttp "GET /market/ HTTP/1.1" 200 46351
+2025-05-16 01:18:36 INFO basehttp "GET /food/ HTTP/1.1" 200 27431
+2025-05-16 01:18:37 INFO basehttp "GET /report-lost-pet/ HTTP/1.1" 200 15600
+2025-05-16 01:18:38 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/list.py", line 174, in get
+    context = self.get_context_data()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Рабочий стол/pet_service/main/views_pages/f_food.py", line 397, in get_context_data
+    ).first()
+      ^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 124, in __iter__
+    obj = model_cls.from_db(
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/base.py", line 582, in from_db
+    new = cls(*values)
+          ^^^^^^^^^^^^
+  File "/home/prom/Рабочий стол/pet_service/main/models.py", line 307, in __init__
+    self.cartitem_set = None
+    ^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py", line 659, in __set__
+    raise TypeError(
+TypeError: Direct assignment to the reverse side of a related set is prohibited. Use cartitem_set.set() instead.
+2025-05-16 01:18:38 ERROR basehttp "GET /products/ HTTP/1.1" 500 113552
+2025-05-16 01:18:44 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/list.py", line 174, in get
+    context = self.get_context_data()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Рабочий стол/pet_service/main/views_pages/f_food.py", line 397, in get_context_data
+    ).first()
+      ^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 124, in __iter__
+    obj = model_cls.from_db(
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/base.py", line 582, in from_db
+    new = cls(*values)
+          ^^^^^^^^^^^^
+  File "/home/prom/Рабочий стол/pet_service/main/models.py", line 307, in __init__
+    self.cartitem_set = None
+    ^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py", line 659, in __set__
+    raise TypeError(
+TypeError: Direct assignment to the reverse side of a related set is prohibited. Use cartitem_set.set() instead.
+2025-05-16 01:18:44 ERROR basehttp "GET /products/ HTTP/1.1" 500 113552
+2025-05-16 01:18:46 INFO basehttp "GET /chats/ HTTP/1.1" 302 0
+2025-05-16 01:18:46 INFO basehttp "GET /accounts/login/?next=/chats/ HTTP/1.1" 200 19676
+2025-05-16 01:18:49 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/list.py", line 174, in get
+    context = self.get_context_data()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Рабочий стол/pet_service/main/views_pages/f_food.py", line 397, in get_context_data
+    ).first()
+      ^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 124, in __iter__
+    obj = model_cls.from_db(
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/base.py", line 582, in from_db
+    new = cls(*values)
+          ^^^^^^^^^^^^
+  File "/home/prom/Рабочий стол/pet_service/main/models.py", line 307, in __init__
+    self.cartitem_set = None
+    ^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py", line 659, in __set__
+    raise TypeError(
+TypeError: Direct assignment to the reverse side of a related set is prohibited. Use cartitem_set.set() instead.
+2025-05-16 01:18:49 ERROR basehttp "GET /products/ HTTP/1.1" 500 113552
+2025-05-16 02:03:39 INFO autoreload Watching for file changes with StatReloader
+2025-05-16 02:03:47 INFO basehttp "GET / HTTP/1.1" 200 42624
+2025-05-16 02:03:54 INFO basehttp "GET /registration/ HTTP/1.1" 200 19871
+2025-05-16 02:03:56 INFO basehttp "GET /net HTTP/1.1" 200 41335
+2025-05-16 02:03:58 INFO basehttp "GET /media/avatars/kot_s8uvq4f.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-35.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-46.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-50.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-48.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-47.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-51.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-54.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-53.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-03-52.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/avatars/001539.png HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/photo_2025-04-19_22-04-16.jpg HTTP/1.1" 304 0
+2025-05-16 02:03:58 INFO basehttp "GET /media/posts/kot.jpg HTTP/1.1" 304 0
+2025-05-16 02:04:00 INFO basehttp "GET /market/ HTTP/1.1" 200 46351
+2025-05-16 02:04:01 INFO basehttp "GET /media/animal_listings/001830.png HTTP/1.1" 304 0
+2025-05-16 02:04:01 INFO basehttp "GET /media/animal_listings/photo_2025-04-19_22-03-48.jpg HTTP/1.1" 304 0
+2025-05-16 02:04:01 INFO basehttp "GET /media/animal_listings/bd29e86a07ced071831729a3d7184bf2.jpg HTTP/1.1" 304 0
+2025-05-16 02:04:01 INFO basehttp "GET /media/animal_listings/222230.png HTTP/1.1" 304 0
+2025-05-16 02:04:01 INFO basehttp "GET /media/animal_listings/photo_2025-04-19_22-03-54_xQhizgn.jpg HTTP/1.1" 304 0
+2025-05-16 02:04:01 INFO basehttp "GET /food/ HTTP/1.1" 200 27431
+2025-05-16 02:04:03 INFO basehttp "GET /report-lost-pet/ HTTP/1.1" 200 15600
+2025-05-16 02:04:04 INFO basehttp "GET /food/ HTTP/1.1" 200 27431
+2025-05-16 02:04:24 ERROR log Internal Server Error: /products/
+Traceback (most recent call last):
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/views/generic/list.py", line 174, in get
+    context = self.get_context_data()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Рабочий стол/pet_service/main/views_pages/f_food.py", line 397, in get_context_data
+    ).first()
+      ^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1097, in first
+    for obj in queryset[:1]:
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 400, in __iter__
+    self._fetch_all()
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/query.py", line 124, in __iter__
+    obj = model_cls.from_db(
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/base.py", line 582, in from_db
+    new = cls(*values)
+          ^^^^^^^^^^^^
+  File "/home/prom/Рабочий стол/pet_service/main/models.py", line 310, in __init__
+    self.cartitem_set = None
+    ^^^^^^^^^^^^^^^^^
+  File "/home/prom/Документы/pacman/pacman-rl-s-101-2/venv/lib/python3.12/site-packages/django/db/models/fields/related_descriptors.py", line 659, in __set__
+    raise TypeError(
+TypeError: Direct assignment to the reverse side of a related set is prohibited. Use cartitem_set.set() instead.
+2025-05-16 02:04:24 ERROR basehttp "GET /products/ HTTP/1.1" 500 113541

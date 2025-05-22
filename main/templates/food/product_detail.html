@@ -1,0 +1,388 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<style>
+    .back-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        margin-top: -30px;
+    }
+
+    .back-title {
+        font-size: 2rem;
+        color: #333;
+    }
+    .back-to-page {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        background-color: #f8f9fa;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        border: 1px solid #ddd;
+    }
+</style>
+<div class="container product-detail">
+    <div class="back-header">
+        <h1 class="back-title">Товар</h1>
+        <a href="/products/" class="back-to-page">
+            <i class="fas fa-arrow-left"></i> К покупкам
+        </a>
+    </div>
+    <div class="product-detail-container">
+        <div class="product-images">
+            <div class="main-image">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </div>
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <div class="product-meta">
+                <span class="product-category">{{ product.food_type }} / {{ product.pet_type }}</span>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i> {{ product.average_rating }} ({{ reviews.count }}  отзывов)
+                </div>
+            </div>
+
+            <div class="product-price">
+                <span class="price-current">{{ product.price }} ₽</span>
+                {% if product.old_price %}
+                <span class="price-old">{{ product.old_price }} ₽</span>
+                {% endif %}
+            </div>
+
+            <div class="product-description">
+                <h3>Описание</h3>
+                <p>{{ product.description }}</p>
+            </div>
+
+            <div class="product-actions">
+                <a href="{% url 'add_to_cart' product.id %}" class="btn-add-to-cart">
+                    <i class="fas fa-shopping-cart"></i> В корзину
+                </a>
+                <a href="{% url 'toggle_favorite' product.id %}">
+                <div class="product-wishlist">
+                    <i class="{% if product.id in user_favorite_ids %}fas fa-heart{% else %}far fa-heart{% endif %}"> {% if product.id in user_favorite_ids %} Из избранного{% else %} В избранное{% endif %}</i>
+                </div>
+                    </a>
+            </div>
+
+            <div class="product-specs">
+                <h3>Характеристики</h3>
+                <ul>
+                    <li><strong>Тип корма:</strong> {{ product.get_food_type_display }}</li>
+                    <li><strong>Для:</strong> {{ product.pet_type }}</li>
+                    <li><strong>Вес:</strong> {{ product.weight }}</li>
+                    <li><strong>Состав:</strong> {{ product.composition }} </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-reviews">
+        <h2>Отзывы ({{ reviews.count }})</h2>
+
+        {% if request.user.is_authenticated %}
+        <div class="add-review">
+            <h3>Оставить отзыв</h3>
+            <form method="post" action="{% url 'product_detail' product.slug %}">
+                {% csrf_token %}
+                <div class="rating-input">
+                    <label>Оценка:</label>
+                    <div class="stars">
+                        {% for i in "54321" %}
+                        <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"
+                               {% if user_review and user_review.rating == i|add:0 %}checked{% endif %}>
+                        <label for="star{{ i }}">★</label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="id_comment">Комментарий:</label>
+                    <textarea name="comment" id="id_comment" rows="4" class="form-control">{% if user_review %}{{ user_review.comment }}{% endif %}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+            </form>
+        </div>
+        {% else %}
+        <p>Чтобы оставить отзыв, пожалуйста <a href="{% url 'login' %}">войдите</a> в систему.</p>
+        {% endif %}
+
+        <div class="reviews-list">
+            {% for review in reviews %}
+            <div class="review">
+                <div class="review-header">
+                    <span class="review-author">{{ review.user.username }}</span>
+                    <div class="review-rating">
+                        {% for i in "12345" %}
+                            {% if i|add:0 <= review.rating %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="review-date">{{ review.created_at|date:"d.m.Y" }}</div>
+                <div class="review-text">
+                    {{ review.comment }}
+                </div>
+            </div>
+            {% empty %}
+            <p>Пока нет отзывов. Будьте первым!</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+    .add-review {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .rating-input {
+        margin-bottom: 15px;
+    }
+
+    .stars {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .stars input[type="radio"] {
+        display: none;
+    }
+
+    .stars label {
+        color: #ccc;
+        font-size: 24px;
+        padding: 0 5px;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .stars input[type="radio"]:checked ~ label {
+        color: #ffc107;
+    }
+
+    .stars label:hover,
+    .stars label:hover ~ label {
+        color: #ffc107;
+    }
+
+    .stars input[type="radio"]:checked + label {
+        color: #ffc107;
+    }
+
+    .review-rating {
+        color: #ffc107;
+    }
+
+    .review {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .review:last-child {
+        border-bottom: none;
+    }
+    .product-detail {
+        padding: 40px 0;
+    }
+
+    .product-detail-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .product-images {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-image {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .main-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .product-info h1 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .product-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .product-category {
+        color: var(--secondary);
+        font-size: 14px;
+    }
+
+    .product-price {
+        margin: 20px 0;
+    }
+
+    .price-current {
+        font-size: 28px;
+        font-weight: bold;
+        color: var(--primary);
+    }
+
+    .price-old {
+        font-size: 20px;
+        color: #999;
+        text-decoration: line-through;
+        margin-left: 10px;
+    }
+
+    .product-description {
+        margin: 25px 0;
+    }
+
+    .product-description h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+
+    .product-actions {
+        display: flex;
+        gap: 15px;
+        margin: 25px 0;
+    }
+
+    .btn-add-to-cart {
+        flex: 1;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-add-to-cart:hover {
+        background-color: #3a6bd8;
+    }
+
+    .product-wishlist {
+        background-color: var(--light);
+        color: var(--dark);
+        border: none;
+        padding: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-width: 150px;
+    }
+
+    .product-wishlist:hover {
+        background-color: #e2e6ea;
+    }
+
+    .product-specs h3 {
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+
+    .product-specs ul {
+        list-style: none;
+    }
+
+    .product-specs li {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .product-specs li:last-child {
+        border-bottom: none;
+    }
+
+    .product-specs li strong {
+        display: inline-block;
+        width: 120px;
+    }
+
+    .product-reviews {
+        margin-top: 40px;
+        padding-top: 40px;
+        border-top: 1px solid #eee;
+    }
+
+    .product-reviews h2 {
+        margin-bottom: 20px;
+    }
+
+    .review {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .review-author {
+        font-weight: bold;
+    }
+
+    .review-date {
+        color: #999;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .product-detail-container {
+            grid-template-columns: 1fr;
+        }
+
+        .main-image {
+            height: 300px;
+        }
+    }
+</style>
+{% endblock %}

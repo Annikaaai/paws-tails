@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4>{{ notification.title }}</h4>
+                <small class="text-muted">{{ notification.created_at|date:"d.m.Y H:i" }}</small>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="mb-4">
+                {{ notification.message|linebreaks }}
+            </div>
+            
+            {% if notification.related_pet %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5>Информация о питомце</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Кличка:</strong> {{ notification.related_pet.name }}</p>
+                    <p><strong>Вид:</strong> {{ notification.related_pet.get_species_display }}</p>
+                    {% if notification.related_pet.breed %}
+                    <p><strong>Порода:</strong> {{ notification.related_pet.breed }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if notification.related_report %}
+            <div class="card">
+                <div class="card-header">
+                    <h5>Информация о находке</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Место находки:</strong> {{ notification.related_report.found_location }}</p>
+                    <p><strong>Контактные данные:</strong> {{ notification.related_report.contact_info }}</p>
+                    <p><strong>Дата:</strong> {{ notification.related_report.created_at|date:"d.m.Y H:i" }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'notifications_list' %}" class="btn btn-primary">Назад к списку</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

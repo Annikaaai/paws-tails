@@ -1,0 +1,127 @@
+{% load static %}
+
+{% if current_chat %}
+<!-- Шапка чата с кнопкой удаления -->
+<div class="chat-header d-flex justify-content-between align-items-center">
+    <a href="{% url 'user_profile' other_user.username %}" class="text-decoration-none text-dark d-flex align-items-center">
+        <img src="{{ other_user.get_profile.get_avatar_url }}"
+             class="rounded-circle me-3"
+             width="40" height="40"
+             style="object-fit: cover;">
+        <div>
+            <h5 class="mb-0">{{ other_user.username }}</h5>
+            <small class="text-muted" id="typingStatus"></small>
+        </div>
+    </a>
+    <form method="post" action="{% url 'delete_chat' current_chat.id %}" class="mb-0">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Вы уверены, что хотите удалить этот чат?')">
+            Удалить чат
+        </button>
+    </form>
+</div>
+
+<!-- Сообщения -->
+<div class="messages-container p-3 d-flex flex-column" id="messagesContainer">
+    {% for message in messages_list %}
+    <div class="d-flex flex-column {% if message.sender == request.user %}align-items-end{% else %}align-items-start{% endif %}">
+        <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}"
+             data-id="{{ message.id }}"
+             id="message-{{ message.id }}">
+
+            {% if message.is_deleted %}
+                <div class="text-muted fst-italic">Сообщение удалено</div>
+            {% else %}
+                {% if message.sender != request.user %}
+                <div class="fw-bold">{{ message.sender.username }}</div>
+                {% endif %}
+
+                {% if message.image %}
+                <div class="message-image mb-2">
+                    <img src="{{ message.image.url }}" alt="Прикрепленное изображение"
+                         class="img-fluid rounded" style="max-width: 300px; max-height: 300px;">
+                </div>
+                {% endif %}
+
+                {% if message.content %}
+                <div class="message-text">{{ message.content }}</div>
+                {% endif %}
+
+                <div class="message-time">
+                    {{ message.timestamp|time }}
+                    {% if message.edited %}
+                    <span class="text-muted">(изменено)</span>
+                    {% endif %}
+                    {% if message.sender == request.user and message.read %}
+                    <i class="bi bi-check2-all ms-1"></i>
+                    {% endif %}
+                </div>
+
+                {% if message.sender == request.user and not message.is_deleted %}
+                <div class="message-actions mt-1">
+                    <button class="btn btn-sm btn-outline-secondary edit-message-btn"
+                            data-message-id="{{ message.id }}"
+                            style="padding: 0.1rem 0.3rem; font-size: 0.7rem;">
+                        Изменить
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger delete-message-btn"
+                            data-message-id="{{ message.id }}"
+                            style="padding: 0.1rem 0.3rem; font-size: 0.7rem;">
+                        Удалить
+                    </button>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Поле ввода сообщения -->
+<div class="message-input-container">
+    <form id="messageForm" method="post" action="{% url 'send_message' current_chat.id %}"
+          enctype="multipart/form-data" class="d-flex align-items-center">
+        {% csrf_token %}
+        <button type="button" class="btn btn-outline-secondary rounded-circle me-2" id="attachButton">
+            <i class="bi bi-paperclip"></i>
+        </button>
+        <input type="file" name="image" id="imageInput" accept="image/*" style="display: none;">
+        <textarea class="form-control message-input flex-grow-1"
+                  name="content"
+                  placeholder="Введите сообщение..."
+                  rows="1"></textarea>
+        <button type="submit" class="btn btn-primary rounded-circle ms-2"
+                style="width: 40px !important; height: 40px !important; display: flex; justify-content: center; align-items: center;">
+            <i class="bi bi-send"></i>
+        </button>
+    </form>
+</div>
+
+<!-- Модальное окно для редактирования сообщения -->
+<div class="modal fade" id="editMessageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактирование сообщения</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <textarea id="editMessageContent" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" id="saveEditedMessage">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<!-- Если чат не выбран -->
+<div class="no-chat-selected">
+    <div class="text-center">
+        <i class="bi bi-chat-left-text" style="font-size: 3rem; color: #dee2e6;"></i>
+        <h4 class="mt-3 text-muted">Выберите чат для начала общения</h4>
+        <p class="text-muted">Или <a href="{% url 'user_list' %}">найдите пользователя</a> чтобы начать новый диалог</p>
+    </div>
+</div>
+{% endif %}

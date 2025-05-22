@@ -1,0 +1,162 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Добавить новый товар</h1>
+    <form method="post" enctype="multipart/form-data" class="product-form">
+        {% csrf_token %}
+        <input type="hidden" name="owner" value="{{ request.user.id }}">
+
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Ошибки:</strong>
+            {{ form.errors }}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Название товара</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.slug.id_for_label }}">URL (slug)</label>
+                {{ form.slug }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.pet_type.id_for_label }}">Для кого</label>
+                {{ form.pet_type }}
+                {% if form.pet_type.errors %}
+                    <div class="error">{{ form.pet_type.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.food_type.id_for_label }}">Тип корма</label>
+                {{ form.food_type }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.price.id_for_label }}">Цена</label>
+                {{ form.price }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.old_price.id_for_label }}">Старая цена (необязательно)</label>
+                {{ form.old_price }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Описание</label>
+            {{ form.description }}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.weight.id_for_label }}">Вес упаковки</label>
+                {{ form.weight }}
+                <small class="form-text text-muted">Например: 2 кг, 500 г</small>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.stock.id_for_label }}">Количество на складе</label>
+                {{ form.stock }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.composition.id_for_label }}">Состав продукта</label>
+            {{ form.composition }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Изображение</label>
+            {{ form.image }}
+        </div>
+
+        
+        <button type="submit" class="btn-submit">Сохранить товар</button>
+    </form>
+</div>
+
+<style>
+    .product-form {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-row {
+        display: flex;
+        gap: 20px;
+    }
+    
+    .form-row .form-group {
+        flex: 1;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    input, select, textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    
+    textarea {
+        min-height: 120px;
+    }
+    
+    .form-checkboxes {
+        display: flex;
+        gap: 20px;
+        margin: 25px 0;
+    }
+    
+    .form-check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .btn-submit {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .btn-submit:hover {
+        background-color: #3a6bd8;
+    }
+    
+    @media (max-width: 768px) {
+        .form-row, .form-checkboxes {
+            flex-direction: column;
+            gap: 15px;
+        }
+    }
+</style>
+{% endblock %}

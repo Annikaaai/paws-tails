@@ -1,0 +1,245 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body-center %}
+<div class="container mt-4">
+    <!-- Шапка профиля -->
+
+
+    <div class="card mb-4 shadow-sm profile-header">
+        <div class="card-body py-3">
+            <div class="row align-items-center">
+                <!-- Аватар (оставляем как было) -->
+                <div class="col-md-2 text-center">
+                    <img src="{{ profile.get_avatar_url }}"
+                         class="rounded-circle border"
+                         width="120" height="120"
+                         style="object-fit: cover; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                </div>
+
+                <!-- Информация о пользователе (возвращаем к исходной структуре) -->
+                <div class="col-md-6">
+                    <h2 class="mb-2">{{ profile_user.username }}</h2>
+                    {% if profile.bio %}<p class="text-muted mb-3">{{ profile.bio }}</p>{% endif %}
+
+                    <!-- Блоки статистики (оставляем стили как вам нравится) -->
+                    <div class="d-flex mb-2">
+                        <div class="me-4">
+                            <strong class="fs-5">{{ posts.count }}</strong>
+                            <span class="text-muted"> публикаций</span>
+                        </div>
+                        <div class="me-4">
+                            <strong class="fs-5">{{ profile.followers_count }}</strong>
+                            <span class="text-muted"> подписчиков</span>
+                        </div>
+                        <div>
+                            <strong class="fs-5">{{ profile.following_count }}</strong>
+                            <span class="text-muted"> подписок</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Кнопки действий (компактнее) -->
+                <div class="col-md-4" style = 'z-index: 10;'>
+
+                    <div class="d-flex flex-column">
+        {% if user.is_authenticated %}
+            {% if user != profile_user %}
+                    <button class="btn {% if is_following %}btn-outline-secondary{% else %}btn-primary{% endif %} mb-2 follow-btn"
+                            data-username="{{ profile_user.username }}"
+                            id="followButton">
+                        {% if is_following %}Отписаться{% else %}Подписаться{% endif %}
+                    </button>
+                                <a href="{% url 'start_chat' profile_user.id %}" class="btn btn-outline-primary">
+                                    <i class="bi bi-chat-left-text"></i> Написать сообщение
+                                </a>
+                            {% else %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Посты пользователя -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for post in posts %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <a href="{% url 'post_detail' post.id %}">
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" 
+                         style="height: 300px; object-fit: cover;" 
+                         alt="{{ post.title }}">
+                    {% endif %}
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content|truncatechars:100 }}</p>
+                </div>
+                <div class="card-footer bg-white">
+                    <small class="text-muted">
+                        {{ post.created_at|date:"d M Y" }}
+                        <span class="float-end">
+                            <i class="bi bi-heart-fill text-danger"></i> {{ post.likes.count }}
+                        </span>
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                {% if user == profile_user %}
+                У вас пока нет публикаций. <a href="{% url 'create_post' %}">Создайте первую!</a>
+                {% else %}
+                У пользователя пока нет публикаций.
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #fb8516;
+            --dark: #2d3748;
+            --light: #f7fafc;
+            --gradient: linear-gradient(135deg, #4a6bff 0%, #6b46c1 100%);
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            font-family: 'Kumbh Sans', sans-serif;
+        }
+        .btn-outline-primary{
+            background: #4a6bff !important;
+            color: white;
+        }
+        .profile-header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 0;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(74, 107, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-outline-secondary{
+            background: #FFF !important;
+            z-index: 10;
+            color: black;
+        }
+        .btn-outline-secondary:hover{
+            background: #555 !important;
+            color: white;
+        }
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+
+    </style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const followBtn = document.getElementById('followButton');
+
+    if (followBtn) {
+        followBtn.addEventListener('click', async function() {
+            const username = this.getAttribute('data-username');
+            const isFollowing = this.textContent.trim() === 'Отписаться';
+
+            try {
+                this.disabled = true;
+                this.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+                const response = await fetch(`/follow/${username}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Accept': 'application/json',
+                    },
+                    credentials: 'same-origin'
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    // Обновляем кнопку
+                    this.textContent = data.is_following ? 'Отписаться' : 'Подписаться';
+                    this.classList.toggle('btn-primary', !data.is_following);
+                    this.classList.toggle('btn-outline-secondary', data.is_following);
+
+                    // Обновляем счетчик
+                    document.querySelector('.me-4:nth-child(2) strong').textContent = data.followers_count;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                this.disabled = false;
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

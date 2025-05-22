@@ -1,0 +1,891 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<style>
+        :root {
+            --primary: #4b7bec;
+            --secondary: #a55eea;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #20c997;
+            --danger: #dc3545;
+            --warning: #fd7e14;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f5f5;
+        }
+
+
+        .favorite-icon {
+            position: relative;
+            color: #333;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        .fa-heart:before {}
+        .favorite-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+
+
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            margin-top: -86px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Search Section */
+        .search-section {
+            background-color: white;
+            padding: 30px 0;
+            margin-top: -30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input, .search-box select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #3a6bd8;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .filter-tag {
+            background-color: var(--light);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .filter-tag:hover, .filter-tag.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        /* Улучшенная сортировка */
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sort-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .sort-by {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sort-btn {
+            background-color: white;
+            color: var(--dark);
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sort-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .sort-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .sort-dropdown a {
+            color: var(--dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sort-dropdown a:hover {
+            background-color: #f8f9fa;
+            color: var(--primary);
+        }
+
+        .sort-dropdown a i {
+            width: 16px;
+            text-align: center;
+        }
+
+        .sort-by:hover .sort-dropdown {
+            display: block;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Product Card */
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--success);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .product-wishlist {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .product-wishlist:hover, .product-wishlist.active {
+            color: var(--danger);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: var(--secondary);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .price-current {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .price-old {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .product-rating {
+            color: var(--warning);
+            font-size: 14px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-add-to-cart {
+            flex: 1;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-add-to-cart:hover {
+            background-color: #3a6bd8;
+        }
+
+        .btn-details {
+            background-color: var(--light);
+            color: var(--dark);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-details:hover {
+            background-color: #e2e6ea;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-option input {
+            margin-right: 10px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .pagination a {
+            color: var(--dark);
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 4px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .pagination a.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        .cart-icon {
+            position: relative;
+            color: #ffffff;
+            font-size: 25px;
+        }
+        .cart-circle{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #20c997;
+            position: sticky;
+            top: 85%;
+            left: 90%;
+            z-index:10;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+        .fas.fa-heart{
+            color: #dc3545 !important;
+        }
+        .fas.fa-heart.favourite-icon{
+            color: #555555 !important;
+        }
+        .out-of-stock {
+            opacity: 0.7;
+            filter: grayscale(30%);
+        }
+
+        .out-of-stock .product-img img {
+            filter: grayscale(50%);
+        }
+
+        .out-of-stock .btn-add-to-cart {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-container {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .sort-options {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .hero {
+                height: 200px;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+<a class='cart-circle' href="{% url 'cart_view' %}">
+    <div class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        {% if request.user.is_authenticated %}
+        <span class="cart-count">{% if total_items %}{{ total_items }}{% else %}0{% endif %}</span>
+        {% else %}
+        <span class="cart-count">0</span>
+        {% endif %}
+    </div>
+</a>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content">
+        <h1>Премиальные корма для ваших питомцев</h1>
+        <p>Бесплатная доставка при заказе от 2000 руб.</p>
+    </div>
+</section>
+
+<!-- Search Section -->
+<section class="search-section">
+    <div class="container">
+        <form method="get" action="{% url 'product_list' %}">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" name="search" placeholder="Поиск корма..." value="{{ search_query }}">
+                </div>
+                <div class="search-box">
+                    <select name="food_type">
+                        <option value="">Все категории</option>
+                        <option value="dry" {% if current_food_type == 'dry' %}selected{% endif %}>Сухие корма</option>
+                        <option value="wet" {% if current_food_type == 'wet' %}selected{% endif %}>Влажные корма</option>
+                        <option value="premium" {% if current_food_type == 'premium' %}selected{% endif %}>Премиум</option>
+                        <option value="holistic" {% if current_food_type == 'holistic' %}selected{% endif %}>Холистик</option>
+                    </select>
+                </div>
+                <div class="search-box">
+                    <select name="pet_type">
+                        <option value="">Для кого?</option>
+                        {% for value, name in pet_type_choices %}
+                        <option value="{{ value }}" {% if current_pet_type == value %}selected{% endif %}>
+                            {{ name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i> Найти
+                </button>
+            </div>
+
+            <div class="filters">
+                <a href="{% url 'product_list' %}" class="filter-tag {% if not current_food_type %}active{% endif %}">Все</a>
+                <a href="?food_type=dry" class="filter-tag {% if current_food_type == 'dry' %}active{% endif %}">Сухие</a>
+                <a href="?food_type=wet" class="filter-tag {% if current_food_type == 'wet' %}active{% endif %}">Влажные</a>
+                <a href="?food_type=premium" class="filter-tag {% if current_food_type == 'premium' %}active{% endif %}">Премиум</a>
+                <a href="?food_type=holistic" class="filter-tag {% if current_food_type == 'holistic' %}active{% endif %}">Холистик</a>
+                <a href="?food_type=sale" class="filter-tag {% if current_food_type == 'sale' %}active{% endif %}">Акции</a>
+                <a href="{% url 'favorite_list' %}" class="favorite-icon">
+                    <i class="fas fa-heart favourite-icon"></i>
+                    <span class="favorite-count">
+                        {% if request.user.is_authenticated %}
+                            {{ request.user.favorites.count }}
+                        {% else %}0{% endif %}
+                    </span>
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Main Content -->
+<main class="main-content">
+    <div class="container">
+        <div class="section-title">
+            <h2>Корма для питомцев</h2>
+            <div class="sort-options">
+                <span class="sort-label">Сортировка:</span>
+                <div class="sort-by">
+                    <button class="sort-btn">
+                        <span>
+                            {% if sort_by == 'price-asc' %}По возрастанию цены
+                            {% elif sort_by == 'price-desc' %}По убыванию цены
+                            {% elif sort_by == 'rating' %}По рейтингу
+                            {% elif sort_by == 'new' %}Сначала новинки
+                            {% else %}По популярности{% endif %}
+                        </span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="sort-dropdown">
+                        <a href="?sort=popular{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}">
+                            <i class="fas fa-fire"></i> По популярности
+                        </a>
+                        <a href="?sort=price-asc{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}">
+                            <i class="fas fa-arrow-up"></i> По возрастанию цены
+                        </a>
+                        <a href="?sort=price-desc{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}">
+                            <i class="fas fa-arrow-down"></i> По убыванию цены
+                        </a>
+                        <a href="?sort=rating{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}">
+                            <i class="fas fa-star"></i> По рейтингу
+                        </a>
+                        <a href="?sort=new{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}">
+                            <i class="fas fa-bolt"></i> Сначала новинки
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card {% if product.stock <= 0 %}out-of-stock{% endif %}" data-price="{{ product.price }}" data-rating="{{ product.rating }}" data-date="{{ product.created_at|date:'Y-m-d' }}">
+                <div class="product-img">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+<!--                    {% if product.get_badge %}-->
+<!--&lt;!&ndash;                    <span class="product-badge">{{ product.get_badge }}</span>&ndash;&gt;-->
+<!--                    {% endif %}-->
+                    <div class="product-wishlist">
+                        <a href="{% url 'toggle_favorite' product.id %}">
+                            <i class="{% if product.id in user_favorite_ids %}fas fa-heart{% else %}far fa-heart{% endif %}"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">{{ product.get_food_type_display }}</div>
+                    <h3 class="product-title">{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description }}</p>
+                    <div class="product-price">
+                        <div>
+                            <span class="price-current">{{ product.price }} ₽</span>
+                            {% if product.old_price %}
+                            <span class="price-old">{{ product.old_price }} ₽</span>
+                            {% endif %}
+                        </div>
+                        <div class="product-rating">
+                            {% with ''|center:5 as range %}
+                            {% for _ in range %}
+                                {% if forloop.counter <= product.average_rating %}
+                                    <i class="fas fa-star"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                            {% endwith %}
+                            {{ product.average_rating|default:"0" }} ({{ product.reviews.count }})
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        {% if product.stock > 0 %}
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn-add-to-cart">
+                            <i class="fas fa-shopping-cart"></i>&nbspВ корзину
+                        </a>
+                        {% else %}
+                        <button class="btn-add-to-cart" disabled>
+                            Нет в наличии
+                        </button>
+                        {% endif %}
+                        <a href="{% url 'product_detail' product.slug %}" class="btn-details">
+                            <i class="fas fa-info"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-products">
+                <p>Товары не найдены. Попробуйте изменить параметры поиска.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}">&laquo;</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a href="?page={{ num }}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}" class="active">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}">{{ num }}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if sort_by %}&sort={{ sort_by }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_pet_type %}&pet_type={{ current_pet_type }}{% endif %}{% if current_food_type %}&food_type={{ current_food_type }}{% endif %}">&raquo;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+
+    </div>
+    <div class = 'container mt-3'>
+        <a href="{% url 'food' %}">Как выбрать корм для питомцев?</a> <br>
+        <a href="{% url 'seller_dashboard' %}">Продавцам</a>
+    </div>
+</main>
+
+
+<script>
+
+    // Add to cart animation
+    document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (!e.target.closest('a')) {
+                const cartCount = document.querySelector('.cart-count');
+                let count = parseInt(cartCount.textContent);
+                cartCount.textContent = count + 1;
+
+                // Animation
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Добавлено';
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                }, 2000);
+            }
+        });
+    });
+
+    // Filter tags
+    document.querySelectorAll('.filter-tag').forEach(tag => {
+        tag.addEventListener('click', function(e) {
+            if (!e.target.closest('a')) {
+                document.querySelector('.filter-tag.active').classList.remove('active');
+                this.classList.add('active');
+            }
+        });
+    });
+
+
+
+// Обработка добавления/удаления из избранного
+document.querySelectorAll('.product-wishlist a').forEach(link => {
+    link.addEventListener('click', async function(e) {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(this.href);
+            if (response.ok) {
+                const icon = this.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+
+                // Обновляем счетчик в шапке (если есть)
+                const favoriteCount = document.querySelector('.favorite-count');
+                if (favoriteCount) {
+                    const currentCount = parseInt(favoriteCount.textContent);
+                    if (icon.classList.contains('fas')) {
+                        favoriteCount.textContent = currentCount + 1;
+                    } else {
+                        favoriteCount.textContent = Math.max(0, currentCount - 1);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+});
+
+// Для страницы избранного - обновление после удаления
+document.querySelectorAll('.btn-remove-favorite').forEach(btn => {
+    btn.addEventListener('click', async function(e) {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(this.href, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                credentials: 'same-origin'
+            });
+
+            if (response.ok) {
+                this.closest('.product-card').remove();
+
+                // Если больше нет товаров, показываем сообщение
+                if (document.querySelectorAll('.product-card').length === 0) {
+                    document.querySelector('.favorites-grid').innerHTML = `
+                        <div class="empty-favorites">
+                            <p>В вашем списке избранного пока нет товаров</p>
+                            <a href="{% url 'product_list' %}" class="btn-continue-shopping">Продолжить покупки</a>
+                        </div>
+                    `;
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+});
+</script>
+{% endblock %}

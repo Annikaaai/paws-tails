@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+{% block body-center %}
+
+<div class="container">
+    <h2>Удалить предка {{ ancestor.name }}</h2>
+    
+    <p>Вы уверены, что хотите удалить этого предка из родословной {{ pet.name }}?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Да, удалить
+            </button>
+            <a href="{% url 'pedigree' pet.id %}" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Отмена
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .form-actions {
+        margin-top: 30px;
+        display: flex;
+        gap: 10px;
+    }
+</style>
+
+{% endblock %}

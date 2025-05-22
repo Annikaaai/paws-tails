@@ -1,0 +1,68 @@
+{% extends "base/base.html" %}
+
+{% block body-center %}
+<div class="container py-5">
+    <div class="delete-confirmation-pet-market">
+        <h2>Подтверждение удаления (Питомцы)</h2>
+        <p>Вы уверены, что хотите удалить объявление "{{ object.title }}"?</p>
+
+        <div class="animal-preview">
+            <img src="{{ object.main_image.url }}" alt="{{ object.title }}">
+            <h3>{{ object.title }}</h3>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="actions">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Да, удалить
+                </button>
+                <a href="{% url 'vendor_dashboard_pet_market' %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .delete-confirmation-pet-market {
+        max-width: 500px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        text-align: center;
+    }
+
+    .delete-confirmation {
+        max-width: 500px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        text-align: center;
+    }
+
+    .animal-preview {
+        margin: 20px 0;
+    }
+
+    .animal-preview img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}

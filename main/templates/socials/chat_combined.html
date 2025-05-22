@@ -1,0 +1,358 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body-center %}
+<style>
+    .chat-container {
+        height: calc(100vh - 54px);
+        margin-top: -16px;
+    }
+    .messages-container {
+        height: calc(100vh - 200px);
+        overflow-y: auto;
+        background-color: #f8f9fa;
+    }
+    .message-input-container {
+        height: 80px;
+        background-color: white;
+        border-top: 1px solid #e0e0e0;
+        padding: 15px;
+    }
+    .message {
+        max-width: 70%;
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        border-radius: 18px;
+        position: relative;
+        word-wrap: break-word;
+    }
+    .received {
+        background-color: white;
+        align-self: flex-start;
+        border-bottom-left-radius: 5px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .sent {
+        background-color: #007bff;
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 5px;
+    }
+    .message-time {
+        font-size: 0.75rem;
+        opacity: 0.7;
+        margin-top: 5px;
+        text-align: right;
+    }
+    .chat-header {
+        background-color: white;
+        border-bottom: 0px solid #e0e0e0;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+    }
+    .chat-list {
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+        border-right: 1px solid #dee2e6;
+    }
+    .chat-list-item {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .message-input {
+        border-radius: 20px;
+        resize: none;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+    }
+    .no-chat-selected {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - 60px);
+    }
+    .message-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.message-image img:hover {
+    transform: scale(1.03);
+}
+
+/* Стиль для сообщений с изображениями */
+.message.has-image {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+</style>
+
+<div class="container-fluid chat-container p-0">
+    <div class="row g-0 h-100">
+        <!-- Список чатов -->
+        <div class="col-md-4">
+            {% include 'socials/partials/_chat_list.html' %}
+        </div>
+
+        <!-- Основное окно чата -->
+        <div class="col-md-8 d-flex flex-column">
+            {% include 'socials/partials/_chat_window.html' %}
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Автоматическое увеличение высоты textarea
+    $('.message-input').on('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    // Прокрутка вниз при загрузке
+    const messagesContainer = $('#messagesContainer');
+    if (messagesContainer.length) {
+        messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
+    }
+
+    // Обработчик для кнопки прикрепления файла
+    $('#attachButton').click(function() {
+        $('#imageInput').click();
+    });
+
+    // Отображение имени файла при выборе
+    $('#imageInput').change(function() {
+        if (this.files && this.files[0]) {
+            const fileName = this.files[0].name;
+            $('.message-input').attr('placeholder', `Файл: ${fileName}`);
+        }
+    });
+
+    // AJAX отправка сообщений с файлами
+    $('#messageForm').on('submit', function(e) {
+    e.preventDefault();
+    const form = $(this);
+    const formData = new FormData(this);
+    const textarea = form.find('.message-input');
+
+    // Проверяем, есть ли текст или файл для отправки
+    if (textarea.val().trim() || $('#imageInput')[0].files.length > 0) {
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(),
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Очищаем форму
+                    form[0].reset();
+                    textarea.attr('placeholder', 'Введите сообщение...');
+                    textarea.css('height', 'auto');
+
+                    // Не добавляем сообщение вручную - дождёмся следующего обновления
+                    // Прокручиваем вниз
+                    messagesContainer.scrollTop(messagesContainer[0].scrollHeight);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                alert('Ошибка: ' + (xhr.responseJSON?.error || 'При отправке сообщения'));
+            }
+        });
+    }
+});
+
+    // Обработка нажатия Enter (без Shift)
+    $('.message-input').on('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            $('#messageForm').submit();
+        }
+    });
+
+// Обработчики для кнопок удаления и редактирования
+    $(document).on('click', '.delete-message-btn', function() {
+        const messageId = $(this).data('message-id');
+        if (confirm('Вы уверены, что хотите удалить это сообщение?')) {
+            $.ajax({
+                url: window.location.href,
+                type: 'GET',
+                data: {
+                    action: 'delete_message',
+                    message_id: messageId
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function() {
+                    $(`#message-${messageId} .message-text`).replaceWith('<div class="text-muted fst-italic">Сообщение удалено</div>');
+                    $(`#message-${messageId} .message-actions`).remove();
+                }
+            });
+        }
+    });
+
+    // Редактирование сообщения
+    let currentEditingMessageId = null;
+
+    $(document).on('click', '.edit-message-btn', function() {
+        currentEditingMessageId = $(this).data('message-id');
+        const messageText = $(`#message-${currentEditingMessageId} .message-text`).text();
+        $('#editMessageContent').val(messageText);
+        $('#editMessageModal').modal('show');
+    });
+
+    $('#saveEditedMessage').click(function() {
+        const newContent = $('#editMessageContent').val().trim();
+        if (newContent && currentEditingMessageId) {
+            $.ajax({
+                url: window.location.href,
+                type: 'GET',
+                data: {
+                    action: 'edit_message',
+                    message_id: currentEditingMessageId,
+                    content: newContent
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $(`#message-${currentEditingMessageId} .message-text`).text(response.content);
+                        if (response.edited) {
+                            $(`#message-${currentEditingMessageId} .message-time`).append(' <span class="text-muted">(изменено)</span>');
+                        }
+                        $('#editMessageModal').modal('hide');
+                    }
+                }
+            });
+        }
+    });
+
+    // Обновление чата каждые 3 секунды
+    setInterval(function() {
+        if ($('#messagesContainer').length && $('.chat-header').length) {
+            const lastMessageId = $('.message').last().data('id') || 0;
+            const chatId = window.location.pathname.split('/').pop();
+
+            $.ajax({
+                url: window.location.href,
+                type: 'GET',
+                data: {
+                    last_message: lastMessageId,
+                    action: 'get_messages'
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function(data) {
+                    if (data.new_messages && data.new_messages.length > 0) {
+                        // Добавляем новые сообщения
+                        data.new_messages.forEach(msg => {
+                            if ($(`#message-${msg.id}`).length) return; // Если сообщение уже есть - пропускаем
+
+                            let messageHtml = `
+                                <div class="d-flex flex-column ${msg.is_current_user ? 'align-items-end' : 'align-items-start'}">
+                                    <div class="message ${msg.is_current_user ? 'sent' : 'received'}"
+                                         data-id="${msg.id}" id="message-${msg.id}">
+                            `;
+
+                            if (msg.is_deleted) {
+                                messageHtml += `<div class="text-muted fst-italic">Сообщение удалено</div>`;
+                            } else {
+                                if (!msg.is_current_user) {
+                                    messageHtml += `<div class="fw-bold">${msg.sender}</div>`;
+                                }
+
+                                if (msg.image_url) {
+                                    messageHtml += `
+                                        <div class="message-image mb-2">
+                                            <img src="${msg.image_url}"
+                                                 class="img-fluid rounded"
+                                                 style="max-width: 300px; max-height: 300px;">
+                                        </div>
+                                    `;
+                                }
+
+                                if (msg.content) {
+                                    messageHtml += `<div class="message-text">${msg.content}</div>`;
+                                }
+
+                                messageHtml += `
+                                    <div class="message-time">
+                                        ${msg.timestamp}
+                                        ${msg.edited ? '<span class="text-muted">(изменено)</span>' : ''}
+                                        ${msg.is_current_user ? '<i class="bi bi-check2-all ms-1"></i>' : ''}
+                                    </div>
+                                `;
+
+                                if (msg.is_current_user && !msg.is_deleted) {
+                                    messageHtml += `
+                                        <div class="message-actions mt-1">
+                                            <button class="btn btn-sm btn-outline-secondary edit-message-btn"
+                                                    data-message-id="${msg.id}"
+                                                    style="padding: 0.1rem 0.3rem; font-size: 0.7rem;">
+                                                Изменить
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger delete-message-btn"
+                                                    data-message-id="${msg.id}"
+                                                    style="padding: 0.1rem 0.3rem; font-size: 0.7rem;">
+                                                Удалить
+                                            </button>
+                                        </div>
+                                    `;
+                                }
+                            }
+
+                            messageHtml += `
+                                    </div>
+                                </div>
+                            `;
+
+                            $('#messagesContainer').append(messageHtml);
+                        });
+
+                        // Обновляем счетчики непрочитанных в списке чатов
+                        if (data.unread_counts) {
+                            Object.entries(data.unread_counts).forEach(([chatId, count]) => {
+                                const badge = $(`.chat-list-item[href*="/chat/${chatId}/"] .badge`);
+                                if (count > 0) {
+                                    if (badge.length) {
+                                        badge.text(count);
+                                    } else {
+                                        $(`.chat-list-item[href*="/chat/${chatId}/"]`).append(
+                                            `<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">${count}</span>`
+                                        );
+                                    }
+                                } else {
+                                    badge.remove();
+                                }
+                            });
+                        }
+
+                        // Прокручиваем вниз, если пользователь уже внизу
+                        const container = $('#messagesContainer')[0];
+                        if (container.scrollTop + container.clientHeight >= container.scrollHeight - 50) {
+                            container.scrollTop = container.scrollHeight;
+                        }
+                    }
+                }
+            });
+        }
+    }, 3000);
+});
+</script>
+</script>
+{% endblock %}

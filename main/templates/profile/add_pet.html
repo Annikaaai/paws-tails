@@ -1,0 +1,429 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 rounded-4 overflow-hidden shadow-sm">
+                <div class="card-header text-white py-4" style="background-color: #00C897; padding-left: 30px;">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h2 class="h5 mb-0 fw-bold">Добавить питомца</h2>
+                            <p class="text-white mb-0 small opacity-75">Заполните информацию о вашем питомце</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body px-5 py-4">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate id="pet-form">
+                        {% csrf_token %}
+
+                        <!-- Поле для клички -->
+                        <div class="mb-4">
+                            <label for="id_name" class="form-label fw-semibold">Кличка</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class="fas fa-paw text-muted"></i>
+                                </span>
+                                <input type="text" name="name" value="{{ form.name.value|default_if_none:'' }}"
+                                       class="form-control" id="id_name" placeholder="Введите кличку питомца"
+                                       maxlength="30">
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <small class="text-muted">Максимум 30 символов</small>
+                                <small><span id="name-char-count">{{ form.name.value|length|default:0 }}</span>/30</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Поле для вида животного -->
+                            <div class="col-md-6 mb-4">
+                                <label for="id_species" class="form-label fw-semibold">Вид животного</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <i class="fas fa-dog text-muted"></i>
+                                    </span>
+                                    <select name="species" class="form-select select-species" id="id_species">
+                                        {% for value, label in form.species.field.choices %}
+                                            <option value="{{ value }}" {% if form.species.value == value %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Поле для породы -->
+                            <div class="col-md-6 mb-4">
+                                <label for="id_breed" class="form-label fw-semibold">Порода</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <i class="fas fa-dna text-muted"></i>
+                                    </span>
+                                    <input type="text" name="breed" value="{{ form.breed.value|default_if_none:'' }}"
+                                           class="form-control input-breed" id="id_breed" placeholder="Введите породу">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Поле для возраста с валидацией -->
+                            <div class="col-md-6 mb-4">
+                                <label for="id_age" class="form-label fw-semibold">Возраст</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <i class="fas fa-birthday-cake text-muted"></i>
+                                    </span>
+                                    <input type="number" name="age" value="{{ form.age.value|default_if_none:'' }}"
+                                           class="form-control" id="id_age" placeholder="0-30"
+                                           min="0" max="30" step="1">
+                                    <span class="input-group-text">лет</span>
+                                </div>
+                                <small class="text-muted d-block mt-1">Допустимый возраст: от 0 до 30 лет</small>
+                                <div class="invalid-feedback age-feedback" style="display: none;">
+                                    Пожалуйста, введите корректный возраст (0-30)
+                                </div>
+                            </div>
+
+                            <!-- Поле для загрузки фото -->
+                            <div class="col-md-6 mb-4">
+                                <label for="id_photo" class="form-label fw-semibold">Фотография</label>
+                                <div class="file-input-wrapper">
+                                    <label for="id_photo" class="file-input-label">
+                                        <i class="fas fa-camera me-2"></i>
+                                        <span id="file-name">Выберите файл...</span>
+                                    </label>
+                                    <input type="file" name="photo" class="form-control visually-hidden" id="id_photo">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Поле "О питомце" -->
+                        <div class="mb-4">
+                            <label for="id_bio" class="form-label fw-semibold">О питомце</label>
+                            <div class="textarea-wrapper position-relative">
+                                <textarea name="bio" class="form-control" id="id_bio"
+                                          rows="5" placeholder="Расскажите о характере, привычках и особенностях вашего питомца"
+                                          maxlength="150">{{ form.bio.value|default_if_none:'' }}</textarea>
+                                <div class="textarea-bottom d-flex justify-content-between mt-1">
+                                    <small class="text-muted">Максимум 150 символов</small>
+                                    <small><span id="bio-char-count">{{ form.bio.value|length|default:0 }}</span>/150</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
+                            <a href="{% url 'profile' %}" class="btn btn-outline-secondary rounded-pill px-4">
+                                <i class="fas fa-arrow-left me-2"></i>Отмена
+                            </a>
+                            <button type="submit" class="btn btn-success rounded-pill px-4" style="background-color: #00C897; border-color: #00C897;" id="submit-btn">
+                                <i class="fas fa-save me-2"></i>Добавить питомца
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8fafc;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+    }
+
+    /* Общие стили для полей ввода */
+    .form-control, .form-select, .select-species, .input-breed {
+        border-radius: 10px;
+        padding: 12px 15px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+        background-color: #fff;
+        font-size: 0.95rem;
+        height: auto;
+    }
+
+    /* Стили для select (вид животного) */
+    .select-species {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 16px 12px;
+        border-left: none;
+    }
+
+    /* Стили для textarea */
+    textarea.form-control {
+        min-height: 150px;
+        resize: none;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+    /* Стили для поля выбора файла */
+    .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .file-input-label {
+        display: block;
+        padding: 12px 15px;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        background-color: #fff;
+        color: #495057;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+    }
+
+    .file-input-label:hover {
+        border-color: #00C897;
+        background-color: #f8fafc;
+    }
+
+    .file-input-label i {
+        color: #00C897;
+    }
+
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    /* Стили для групп ввода */
+    .input-group {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .input-group-text {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 10px 0 0 10px !important;
+    }
+
+    /* Фокус-стили */
+    .form-control:focus, .form-select:focus,
+    .select-species:focus, .input-breed:focus {
+        border-color: #00C897;
+        box-shadow: 0 0 0 0.25rem rgba(0, 200, 151, 0.15);
+        outline: none;
+        z-index: 3;
+    }
+
+    /* Стили для кнопок */
+    .btn-success {
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .btn-success:hover {
+        background-color: #00b389 !important;
+        border-color: #00b389 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 200, 151, 0.2);
+    }
+
+    .btn-outline-secondary {
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(108, 117, 125, 0.1);
+    }
+
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+
+    .rounded-pill {
+        padding: 10px 24px;
+    }
+
+    /* Стили для валидации */
+    .char-limit-exceeded {
+        color: #dc3545 !important;
+        font-weight: bold;
+    }
+
+    .field-invalid {
+        border-color: #dc3545 !important;
+    }
+
+    .submit-disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .age-invalid {
+        border-color: #dc3545 !important;
+    }
+
+    .age-feedback {
+        color: #dc3545;
+        font-size: 0.875rem;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Элементы формы
+        const nameField = document.getElementById('id_name');
+        const nameCharCount = document.getElementById('name-char-count');
+        const bioField = document.getElementById('id_bio');
+        const bioCharCount = document.getElementById('bio-char-count');
+        const ageField = document.getElementById('id_age');
+        const ageFeedback = document.querySelector('.age-feedback');
+        const submitBtn = document.getElementById('submit-btn');
+        const form = document.getElementById('pet-form');
+        const fileInput = document.getElementById('id_photo');
+        const fileNameSpan = document.getElementById('file-name');
+
+        // Обработка выбора файла
+        if (fileInput && fileNameSpan) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    fileNameSpan.textContent = this.files[0].name;
+                } else {
+                    fileNameSpan.textContent = "Выберите файл...";
+                }
+            });
+        }
+
+        // Проверка возраста
+        function validateAge() {
+            const age = parseInt(ageField.value);
+            const isValid = !isNaN(age) && age >= 0 && age <= 30;
+
+            if (!isValid && ageField.value !== '') {
+                ageField.classList.add('age-invalid');
+                ageFeedback.style.display = 'block';
+                return false;
+            } else {
+                ageField.classList.remove('age-invalid');
+                ageFeedback.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Инициализация счетчиков
+        function initCharCounters() {
+            updateCharCounter(nameField, nameCharCount, 30);
+            updateCharCounter(bioField, bioCharCount, 150);
+            updateSubmitButton();
+        }
+
+        // Обновление счетчика символов
+        function updateCharCounter(field, counterElement, maxLength) {
+            if (!field || !counterElement) return;
+
+            const count = field.value.length;
+            counterElement.textContent = count;
+
+            if (count > maxLength) {
+                counterElement.classList.add('char-limit-exceeded');
+                field.classList.add('field-invalid');
+            } else {
+                counterElement.classList.remove('char-limit-exceeded');
+                field.classList.remove('field-invalid');
+            }
+        }
+
+        // Обновление состояния кнопки отправки
+        function updateSubmitButton() {
+            if (!submitBtn) return;
+
+            const nameValid = nameField.value.length <= 30;
+            const bioValid = bioField.value.length <= 150;
+            const ageValid = validateAge();
+
+            if (nameValid && bioValid && ageValid) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('submit-disabled');
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('submit-disabled');
+            }
+        }
+
+        // Обработчики событий
+        if (nameField && nameCharCount) {
+            nameField.addEventListener('input', function() {
+                updateCharCounter(nameField, nameCharCount, 30);
+                updateSubmitButton();
+            });
+        }
+
+        if (bioField && bioCharCount) {
+            bioField.addEventListener('input', function() {
+                updateCharCounter(bioField, bioCharCount, 150);
+                updateSubmitButton();
+            });
+        }
+
+        if (ageField) {
+            ageField.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value > 30) this.value = 30;
+                updateSubmitButton();
+            });
+
+            ageField.addEventListener('blur', function() {
+                validateAge();
+                updateSubmitButton();
+            });
+        }
+
+        // Проверка перед отправкой
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const nameValid = nameField.value.length <= 30;
+                const bioValid = bioField.value.length <= 150;
+                const ageValid = validateAge();
+
+                if (!nameValid || !bioValid || !ageValid) {
+                    e.preventDefault();
+                    let errorMessage = 'Пожалуйста, исправьте ошибки перед сохранением:\n\n';
+                    if (!nameValid) errorMessage += '- Кличка: максимум 30 символов\n';
+                    if (!bioValid) errorMessage += '- О питомце: максимум 150 символов\n';
+                    if (!ageValid) errorMessage += '- Возраст: допустимый диапазон 0-30 лет\n';
+                    alert(errorMessage);
+                }
+            });
+        }
+
+        // Инициализация при загрузке
+        initCharCounters();
+    });
+</script>
+
+{% endblock %}

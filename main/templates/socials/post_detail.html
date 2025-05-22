@@ -1,0 +1,439 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block body-center %}
+<div class="container mt-3">
+    <div class="back-header">
+        <h1 class="back-title">Пост</h1>
+        <a href="/net" class="back-to-page">
+            <i class="fas fa-arrow-left"></i> Назад
+        </a>
+    </div>
+    <div class="card shadow-sm">
+        <!-- Заголовок поста -->
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <a href="{% url 'user_profile' post.owner.username %}" class="text-decoration-none text-dark">
+
+            <div class="d-flex align-items-center">
+                {% if post.owner.get_profile.avatar_number %}
+                <img src="{{ post.owner.get_profile.get_avatar_url }}"
+                                 class="rounded-circle me-2"
+                                 width="40" height="40"
+                                 style="object-fit: cover;">
+                {% endif %}
+                <div>
+                    <strong class="d-block">{{ post.owner.username }}</strong>
+                    {% if post.pet %}
+                    <small class="text-muted">с {{ post.pet.name }}</small>
+                    {% endif %}
+                </div>
+            </div></a>
+            <div class="dropdown">
+                <button class="btn btn-sm" type="button" id="postDropdown{{ post.id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="postDropdown{{ post.id }}">
+                    {% if user == post.owner %}
+                    <li>
+                        <button class="dropdown-item text-danger" onclick="confirmDeletePost({{ post.id }})">
+                            <i class="bi bi-trash me-2"></i>Удалить
+                        </button>
+                    </li>
+                    {% endif %}
+                    {% if post.image %}
+                    <li>
+                        <button class="dropdown-item" onclick="downloadImage('{{ post.image.url }}')">
+                            <i class="bi bi-download me-2"></i>Сохранить изображение
+                        </button>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Изображение поста -->
+        {% if post.image %}
+        <div class="post-image-container">
+            <img src="{{ post.image.url }}"
+                 class="img-fluid w-100"
+                 alt="{{ post.title }}"
+                 style="max-height: 80vh; object-fit: contain; background-color: #f8f9fa;">
+        </div>
+        {% endif %}
+
+        <!-- Контент поста -->
+        <div class="card-body">
+            <!-- Кнопки взаимодействия -->
+            <div class="d-flex justify-content-between mb-3">
+                <div>
+                    <a href="{% url 'like_post' post.id %}"
+                       class="btn btn-sm btn-outline-danger like-btn {% if user in post.likes.all %}liked{% endif %}"
+                       data-post-id="{{ post.id }}">
+                        <i class="bi {% if user in post.likes.all %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                        <span class="ms-1">{{ post.like_count }}</span>
+                    </a>
+                    <a href="#comments" class="btn btn-sm btn-outline-secondary ms-2">
+                        <i class="bi bi-chat"></i>
+                        <span class="ms-1">{{ post.comments.count }}</span>
+                    </a>
+                </div>
+                <button class="btn btn-sm btn-outline-secondary" onclick="copyPostLink({{ post.id }})">
+                    <i class="bi bi-share"></i>
+                </button>
+            </div>
+
+            <!-- Текст поста -->
+            <div class="mb-4">
+                <h4 class="card-title mb-2">{{ post.title }}</h4>
+                <p class="card-text">{{ post.content|linebreaksbr }}</p>
+                <small class="text-muted">{{ post.created_at|date:"d M Y H:i" }}</small>
+            </div>
+
+            <!-- Комментарии -->
+            <div id="comments" class="mb-4">
+                <h6 class="border-bottom pb-2 mb-3">Комментарии ({{ post.comments.count }})</h6>
+
+                {% for comment in comments %}
+                <div class="comment mb-3 d-flex">
+                    <div class="flex-shrink-0">
+                        {% if comment.author.get_profile.avatar_number %}
+                        <a href="{% url 'user_profile' post.owner.username %}" class="text-decoration-none text-dark">
+
+                        <img src="{{ comment.author.get_profile.get_avatar_url }}"
+                             class="rounded-circle me-2 border" width="32" height="32" style="object-fit: cover;">
+                        </a>
+                            {% endif %}
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="bg-light rounded-3 p-2">
+                            <strong>{{ comment.author.username }}</strong>
+                            <p class="mb-0">{{ comment.content }}</p>
+                        </div>
+                        <small class="text-muted ms-2">{{ comment.created_at|timesince }} назад</small>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center text-muted py-3">
+                    Пока нет комментариев. Будьте первым!
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Форма комментария -->
+            {% if user.is_authenticated %}
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                <div class="input-group">
+                    {{ comment_form.content }}
+                    <button class="btn btn-primary" type="submit">
+                        <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </form>
+            {% else %}
+            <div class="alert alert-info mt-4">
+                <a href="{% url 'login' %}" class="alert-link">Войдите</a>, чтобы оставить комментарий
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .back-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        margin-top: 0px;
+    }
+
+    .back-title {
+        font-size: 2rem;
+        color: #333;
+    }
+    .back-to-page {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        background-color: #f8f9fa;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        border: 1px solid #ddd;
+    }
+    .spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+    /* Стили для кнопки лайка */
+    .like-btn {
+        transition: all 0.2s;
+    }
+    .like-btn.liked {
+        color: #dc3545;
+    }
+    .like-btn:hover {
+        color: #FFFFFF;
+        transform: scale(1.1);
+    }
+
+    /* Форма комментария */
+    textarea {
+        resize: none;
+        border-right: none !important;
+    }
+    textarea:focus {
+        box-shadow: none !important;
+        border-color: #ced4da !important;
+    }
+
+    /* Адаптивное изображение */
+    .post-image-container {
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* Анимации */
+    .comment {
+        transition: all 0.3s;
+    }
+    .comment:hover {
+        transform: translateX(5px);
+    }
+    /* Анимация уведомления */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+.notification {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.notification.fade-out {
+    animation: fadeOut 0.3s ease-in;
+}
+    .spinner-border {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: text-bottom;
+    border: .2em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border .75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+.custom-toast {
+    animation: toast-fadein 0.3s;
+}
+
+@keyframes toast-fadein {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+// Плавный скролл к комментариям
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Лайки поста
+document.addEventListener('DOMContentLoaded', function() {
+    const likeBtn = document.querySelector('.like-btn');
+
+    if (likeBtn) {
+        likeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const postId = this.getAttribute('data-post-id');
+            const likeIcon = this.querySelector('i');
+            const likeCount = this.querySelector('span');
+
+            fetch(`/like_post/${postId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Accept': 'application/json',
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.liked) {
+                    likeIcon.classList.remove('bi-heart');
+                    likeIcon.classList.add('bi-heart-fill');
+                    this.classList.add('liked');
+                } else {
+                    likeIcon.classList.remove('bi-heart-fill');
+                    likeIcon.classList.add('bi-heart');
+                    this.classList.remove('liked');
+                }
+                likeCount.textContent = data.like_count;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
+});
+function showToast(message, isError = false) {
+    // Удаляем предыдущие уведомления
+    const oldToasts = document.querySelectorAll('.custom-toast');
+    oldToasts.forEach(toast => toast.remove());
+
+    const toast = document.createElement('div');
+    toast.className = `custom-toast alert alert-${isError ? 'danger' : 'success'}`;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.right = '20px';
+    toast.style.zIndex = '10000';
+    toast.style.maxWidth = '300px';
+    toast.style.wordBreak = 'break-word';
+    toast.innerHTML = `
+        <button type="button" class="btn-close" onclick="this.parentElement.remove()" style="float: right"></button>
+        ${message}
+    `;
+
+    document.body.appendChild(toast);
+
+    // Автоматическое исчезновение через 5 секунд
+    setTimeout(() => {
+        toast.style.transition = 'opacity 0.5s';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 500);
+    }, 5000);
+}
+function confirmDeletePost(postId) {
+    if (confirm('Вы уверены, что хотите удалить этот пост?')) {
+        // Показываем индикатор загрузки на всех кнопках удаления этого поста
+        document.querySelectorAll(`[onclick="confirmDeletePost(${postId})"]`).forEach(btn => {
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
+            btn.disabled = true;
+        });
+
+        fetch(`/delete_post/${postId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Accept': 'application/json',
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка сети');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Показываем уведомление об успехе
+                showToast(data.message || 'Пост удален');
+
+                // Перенаправляем или обновляем страницу
+                if (data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    window.location.reload();
+                }
+            } else {
+                throw new Error(data.error || 'Неизвестная ошибка');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Восстанавливаем кнопки
+            document.querySelectorAll(`[onclick="confirmDeletePost(${postId})"]`).forEach(btn => {
+                btn.innerHTML = '<i class="bi bi-trash"></i>';
+                btn.disabled = false;
+            });
+            // Показываем ошибку
+            showToast(error.message, true);
+        });
+    }
+}
+
+// Функция скачивания изображения
+function downloadImage(imageUrl) {
+    // Создаем временную ссылку
+    const link = document.createElement('a');
+    link.href = imageUrl;
+
+    // Получаем имя файла из URL
+    const filename = imageUrl.split('/').pop() || 'post_image.jpg';
+    link.download = filename;
+
+    // Имитируем клик для скачивания
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Функция копирования ссылки на пост
+function copyPostLink(postId) {
+    const postUrl = `${window.location.origin}/post/${postId}/`;
+
+    navigator.clipboard.writeText(postUrl)
+        .then(() => {
+            // Показываем уведомление
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.backgroundColor = '#28a745';
+            notification.style.color = 'white';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '5px';
+            notification.style.zIndex = '1000';
+            notification.textContent = 'Ссылка скопирована!';
+
+            document.body.appendChild(notification);
+
+            // Удаляем уведомление через 3 секунды
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        })
+        .catch(err => {
+            console.error('Не удалось скопировать ссылку: ', err);
+            // Альтернативный способ для старых браузеров
+            const tempInput = document.createElement('input');
+            tempInput.value = postUrl;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            alert('Ссылка скопирована в буфер обмена!');
+        });
+}
+</script>
+{% endblock %}

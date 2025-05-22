@@ -1,0 +1,23 @@
+
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<p>Приветствую тебя, путник, на нашем простом сайте
+<h3>Данные сайта</h3>
+<ul>
+    <li>Количество страниц: {{ pages }}</li>
+    <li>Автор сайта: {{ auth }}</li>
+    <li>Дата создания: {{ cr_date.day }}.{{ cr_date.month}}.{{ cr_date.year}}</li>
+
+</ul>
+<p>Текущий пользователь: {{ user }}</p>
+<p>(vasya-promprog)</p>
+<body>
+    
+    <ul>Потеряшки</ul>
+    <a href="/lost_and_found/lost">Искать потеряшку</a>
+    <a href="/lost_and_found/found">Заявить о находке</a>
+
+</body>
+{% endblock %}

@@ -1,0 +1,1008 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <title>PetService - Современная платформа для владельцев питомцев</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00C897;
+            --primary-dark: #009D7A;
+            --primary-light: #E0F8F1;
+            --dark: #1A2E35;
+            --light: #F8F9FA;
+            --gray: #6C757D;
+            --accent: #FF6B6B;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Глобальные стили */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: #e05555;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+
+
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .logo:hover .logo-text {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Герой секция */
+        .hero {
+            margin-top: -20px;
+            padding: 80px 0 80px;
+            background: linear-gradient(135deg, var(--primary-light), white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 70%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 200, 151, 0.1) 0%, rgba(0, 200, 151, 0) 70%);
+            z-index: 0;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 32px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .hero-image {
+            position: relative;
+            height: 500px;
+        }
+
+        .hero-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Возможности */
+        .features {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        .feature-text {
+            color: var(--gray);
+        }
+
+        /* Живые питомцы */
+        .pets {
+            background: var(--light);
+        }
+
+        .pets-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .pet-card {
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pet-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .pet-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pet-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .pet-card:hover .pet-img {
+            transform: scale(1.05);
+        }
+
+        .pet-info {
+            padding: 20px;
+        }
+
+        .pet-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .pet-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .pet-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Потеряшки */
+        .lost-pets {
+            background: white;
+        }
+
+        .lost-pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .lost-pet-card {
+            display: flex;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .lost-pet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .lost-pet-image {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .lost-pet-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lost-pet-info {
+            padding: 16px;
+            flex: 1;
+        }
+
+        .lost-pet-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .lost-pet-meta {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .lost-pet-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Сообщество */
+        .community {
+            background: linear-gradient(135deg, var(--dark), #22343C);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 70%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 200, 151, 0.1) 0%, rgba(0, 200, 151, 0) 70%);
+            z-index: 0;
+        }
+
+        .community-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .community-content {
+            max-width: 500px;
+        }
+
+        .community-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+
+        .community-text {
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        .community-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .community-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .community-feature i {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .community-image {
+            position: relative;
+            height: 400px;
+        }
+
+        .community-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+        }
+
+        /* Подписка */
+        .newsletter {
+            background: var(--primary-light);
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        .newsletter-text {
+            color: var(--gray);
+            margin-bottom: 32px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            padding: 16px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Футер */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            text-decoration: none;
+        }
+
+        .footer-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .footer-logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-about {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: white;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 12px;
+        }
+
+        .footer-link a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            padding: 4px 0;
+        }
+
+        .footer-link a:hover {
+            color: white;
+            padding-left: 8px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-contact-item i {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .hero-container, .community-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-image, .community-image {
+                height: 400px;
+                order: -1;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .newsletter-input {
+                margin-bottom: 12px;
+                border-radius: var(--radius-sm);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-text {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+
+
+
+
+    <!-- Герой секция -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">Ваш питомец заслуживает лучшего</h1>
+                <p class="hero-text">Первая в России платформа, объединяющая сообщество любителей животных, маркетплейс и сервисы для заботы о питомцах</p>
+                <div class="hero-actions">
+                    <a href="{% url 'register' %}" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Начать сейчас
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image fade-in delay-1">
+                <img src="https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Счастливый питомец" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Возможности -->
+    <section class="section features">
+        <div class="container">
+            <h2 class="section-title fade-in">Наши возможности</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Социальная сеть</h3>
+                    <p class="feature-text">Общайтесь с другими владельцами, делитесь моментами из жизни питомцев и находите новых друзей</p>
+                </div>
+                <div class="feature-card fade-in delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3 class="feature-title">Pet-маркет</h3>
+                    <p class="feature-text">Покупайте и продавайте питомцев, выбирайте корма с гарантией качества</p>
+                </div>
+                <div class="feature-card fade-in delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="feature-title">Потеряшки</h3>
+                    <p class="feature-text">Любой может заявить о находке вашего питомца</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Сообщество -->
+    <section class="section community">
+        <div class="container community-container">
+            <div class="community-content fade-in">
+                <h2 class="community-title">Присоединяйтесь к нашему сообществу</h2>
+                <p class="community-text">Более 500,000 владельцев питомцев уже общаются, помогают друг другу и делятся своим опытом</p>
+                <ul class="community-features">
+                    <li class="community-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Чаты с проверенными продавцами</span>
+                    </li>
+                    <li class="community-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Переписки с любителями животных</span>
+                    </li>
+                </ul>
+                <a href="/chats" class="btn btn-accent">
+                    <i class="fas fa-comments"></i> Перейти в чаты
+                </a>
+            </div>
+            <div class="community-image fade-in delay-1">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Сообщество PetService" class="community-img">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Питомцы -->
+    <section class="section pets">
+        <div class="container">
+            <div class="pets-header">
+                <h2 class="section-title fade-in">Питомцы на продажу</h2>
+                <a href="/market" class="btn btn-outline fade-in">Смотреть всех</a>
+            </div>
+            <div class="pets-grid">
+                <div class="pet-card fade-in">
+                    <span class="pet-badge">Новое</span>
+                    <div class="pet-image">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Котенок" class="pet-img">
+                    </div>
+                    <div class="pet-info">
+                        <div class="pet-meta">
+                            <span>Коты</span>
+                            <span>2 месяца</span>
+                        </div>
+                        <h3 class="pet-title">Британский котенок</h3>
+                        <p class="pet-price">15 000 ₽</p>
+                    </div>
+                </div>
+                <div class="pet-card fade-in delay-1">
+                    <div class="pet-image">
+                        <img src="https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Щенок" class="pet-img">
+                    </div>
+                    <div class="pet-info">
+                        <div class="pet-meta">
+                            <span>Собаки</span>
+                            <span>3 месяца</span>
+                        </div>
+                        <h3 class="pet-title">Щенок лабрадора</h3>
+                        <p class="pet-price">30 000 ₽</p>
+                    </div>
+                </div>
+                <div class="pet-card fade-in delay-2">
+                    <div class="pet-image">
+                        <img src="https://images.unsplash.com/photo-1551085254-e96b210db58a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Хомяк" class="pet-img">
+                    </div>
+                    <div class="pet-info">
+                        <div class="pet-meta">
+                            <span>Грызуны</span>
+                            <span>1 месяц</span>
+                        </div>
+                        <h3 class="pet-title">Джунгарский хомяк</h3>
+                        <p class="pet-price">1 500 ₽</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Подписка -->
+    <section class="newsletter">
+        <div class="container newsletter-container fade-in">
+            <h2 class="newsletter-title">Будьте в курсе новостей</h2>
+            <p class="newsletter-text">Присоединяйтесь к нашему дружелюбному сообществу и находите друзей!</p>
+            <a href="{% url 'register' %}" class="btn btn-primary">
+                        Зарегистрироваться ->
+                    </a>
+
+        </div>
+    </section>
+
+
+
+{% endblock %}
+{% block footer %}
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col fade-in">
+                    <a href="#" class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <span class="footer-logo-text">Paws & tails</span>
+                    </a>
+                    <p class="footer-about">Первая в России платформа, объединяющая сообщество любителей животных, маркетплейс и сервисы для заботы о питомцах</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col fade-in delay-1">
+                    <h3 class="footer-title">Разделы</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Главная</a></li>
+                        <li class="footer-link"><a href="/net">Лента</a></li>
+                        <li class="footer-link"><a href="/market">Маркет питомцев</a></li>
+                        <li class="footer-link"><a href="/products">Корма</a></li>
+                        <li class="footer-link"><a href="/report-lost-pet">Потеряшки</a></li>
+                        <li class="footer-link"><a href="/chats">Чаты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

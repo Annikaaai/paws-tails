@@ -1,0 +1,250 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 rounded-4 overflow-hidden shadow-sm">
+                <div class="card-header text-white py-4" style="background-color: #00C897; padding-left: 30px;">
+                    <div class="d-flex align-items-center">
+                        <div class = ''>
+                            <h2 class="h5 mb-0 fw-bold">Редактирование профиля</h2>
+                            <p class="text-white mb-0 small opacity-75">Обновите свои данные</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body px-5 py-4">
+                    <form method="post" class="needs-validation" novalidate id="profile-form">
+                        {% csrf_token %}
+
+                        <div class="mb-4">
+                            <label for="id_username" class="form-label fw-semibold">Имя пользователя</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class="fas fa-user text-muted"></i>
+                                </span>
+                                {{ username_form.username }}
+                            </div>
+                            {% if username_form.username.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ username_form.username.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">
+                                Используется для входа в систему
+                                <span class="float-end">
+                                    <span id="username-char-count">0</span>/30
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_bio" class="form-label fw-semibold">О себе</label>
+                            <div class="position-relative">
+                                {{ profile_form.bio }}
+                                <span class="position-absolute top-0 end-0 mt-2 me-2 text-muted small">
+                                    <span id="bio-char-count">0</span>/150
+                                </span>
+                            </div>
+                            <div class="form-text">Расскажите немного о себе</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
+                            <a href="{% url 'profile' %}" class="btn btn-outline-secondary rounded-pill px-4">
+                                <i class="fas fa-arrow-left me-2"></i>Отмена
+                            </a>
+                            <button type="submit" class="btn btn-success rounded-pill px-4" style="background-color: #00C897; border-color: #00C897;" id="submit-btn">
+                                <i class="fas fa-save me-2"></i>Сохранить изменения
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8fafc;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control, .form-select {
+        border-radius: 12px;
+        padding: 12px 15px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #00C897;
+        box-shadow: 0 0 0 0.25rem rgba(0, 200, 151, 0.15);
+    }
+
+    textarea.form-control {
+        min-height: 150px;
+        resize: none;
+    }
+
+    .input-group-text {
+        border-radius: 12px 0 0 12px !important;
+        background-color: #f8fafc;
+        border-right: none;
+    }
+
+    .input-group .form-control {
+        border-left: none;
+        border-radius: 0 12px 12px 0 !important;
+    }
+
+    .btn-success {
+        transition: all 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #00b389 !important;
+        border-color: #00b389 !important;
+        transform: translateY(-1px);
+    }
+
+    .btn-outline-secondary:hover {
+        transform: translateY(-1px);
+    }
+
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+
+    .rounded-pill {
+        padding: 8px 20px;
+    }
+
+    .text-danger {
+        color: #dc3545 !important;
+    }
+
+    .is-invalid {
+        border-color: #dc3545 !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bioField = document.getElementById('id_bio');
+        const usernameField = document.getElementById('id_username');
+        const bioCharCount = document.getElementById('bio-char-count');
+        const usernameCharCount = document.getElementById('username-char-count');
+        const submitBtn = document.getElementById('submit-btn');
+        const form = document.getElementById('profile-form');
+
+        // Инициализация счетчиков
+        function initCharCounters() {
+            if (bioField && bioCharCount) {
+                bioCharCount.textContent = bioField.value.length;
+                if (bioField.value.length > 150) {
+                    bioCharCount.classList.add('text-danger');
+                    bioField.classList.add('is-invalid');
+                }
+            }
+
+            if (usernameField && usernameCharCount) {
+                usernameCharCount.textContent = usernameField.value.length;
+                if (usernameField.value.length > 30) {
+                    usernameCharCount.classList.add('text-danger');
+                    usernameField.classList.add('is-invalid');
+                }
+            }
+
+            updateSubmitButton();
+        }
+
+        // Обновление счетчика для "О себе"
+        if (bioField && bioCharCount) {
+            bioField.addEventListener('input', function() {
+                const count = this.value.length;
+                bioCharCount.textContent = count;
+
+                if (count > 150) {
+                    bioCharCount.classList.add('text-danger');
+                    this.classList.add('is-invalid');
+                } else {
+                    bioCharCount.classList.remove('text-danger');
+                    this.classList.remove('is-invalid');
+                }
+
+                updateSubmitButton();
+            });
+        }
+
+        // Обновление счетчика для имени пользователя
+        if (usernameField && usernameCharCount) {
+            usernameField.addEventListener('input', function() {
+                const count = this.value.length;
+                usernameCharCount.textContent = count;
+
+                if (count > 30) {
+                    usernameCharCount.classList.add('text-danger');
+                    this.classList.add('is-invalid');
+                } else {
+                    usernameCharCount.classList.remove('text-danger');
+                    this.classList.remove('is-invalid');
+                }
+
+                updateSubmitButton();
+            });
+        }
+
+        // Проверка перед отправкой формы
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                if (!validateForm()) {
+                    e.preventDefault();
+                    alert('Пожалуйста, исправьте ошибки перед сохранением.');
+                }
+            });
+        }
+
+        // Функция проверки формы
+        function validateForm() {
+            let isValid = true;
+
+            if (bioField && bioField.value.length > 150) {
+                bioField.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            if (usernameField && usernameField.value.length > 30) {
+                usernameField.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Обновление состояния кнопки отправки
+        function updateSubmitButton() {
+            if (!submitBtn) return;
+
+            const bioValid = !bioField || bioField.value.length <= 150;
+            const usernameValid = !usernameField || usernameField.value.length <= 30;
+
+            if (bioValid && usernameValid) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.6';
+            }
+        }
+
+        // Инициализация при загрузке
+        initCharCounters();
+    });
+</script>
+
+{% endblock %}
