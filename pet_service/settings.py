@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-*%y&tv1-!ru6$azw8u)2*%!syz5%s_nde)wi&3j+p)qucs(p-^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['paws-tails-production.up.railway.app']
 
 SITE_URL = "http://127.0.0.1:8000"  # Для разработки
 # Или для продакшена:
