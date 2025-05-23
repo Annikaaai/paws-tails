@@ -4,18 +4,17 @@
 {% block body-center %}
 <div class="container mt-4">
     {% if user.is_authenticated %}
-    <div class ='d-flex justify-content-center align-items-center'>
-        <a href="/add_post" class="btn btn-primary mb-4 d-flex justify-content-center align-items-center" style = 'width: 100%; height: 40px; font-size: 17px;'>+ Создать пост</a>
-        <a href="{% url 'likes' %}" class="btn m-4 mt-0 btn-sm btn-danger d-flex justify-content-center align-items-center" style = 'width: 25%; height: 40px; font-size: 16px; color: white;'>
+    <div class='d-flex justify-content-center align-items-center'>
+        <a href="/add_post" class="btn btn-primary mb-4 d-flex justify-content-center align-items-center" style='width: 100%; height: 40px; font-size: 17px;'>+ Создать пост</a>
+        <a href="{% url 'likes' %}" class="btn m-4 mt-0 btn-sm btn-danger d-flex justify-content-center align-items-center" style='width: 25%; height: 40px; font-size: 16px; color: white;'>
             <i class="bi bi-heart-fill"></i>&nbspИзбранное
         </a>
     </div>
-
     {% endif %}
 
-    <div class="row" data-masonry='{"percentPosition": true}'>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for post in posts %}
-        <div class="col-sm-6 col-lg-4 mb-4">
+        <div class="col">
             <div class="card h-100">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
@@ -35,10 +34,11 @@
                     <small class="text-muted">{{ post.created_at|timesince }} назад</small>
                 </div>
 
-
                 {% if post.image %}
                 <a href="{% url 'post_detail' post.id %}">
-                <img src="{{ post.image.url }}" class="pet-post-image" alt="{{ post.title }}">
+                    <div class="image-container" style="height: 250px; overflow: hidden;">
+                        <img src="{{ post.image.url }}" class="img-fluid w-100 h-100" alt="{{ post.title }}" style="object-fit: cover;">
+                    </div>
                 </a>
                 {% endif %}
 
@@ -50,10 +50,10 @@
                 <div class="card-footer bg-transparent">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                               <a href="#" class="btn btn-sm btn-outline-danger like-btn" data-post-id="{{ post.id }}">
-                                    <i class="bi {% if user in post.likes.all %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
-                                    <span>{{ post.like_count }}</span>
-                               </a>
+                            <a href="#" class="btn btn-sm btn-outline-danger like-btn" data-post-id="{{ post.id }}">
+                                <i class="bi {% if user in post.likes.all %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                                <span>{{ post.like_count }}</span>
+                            </a>
                             <a href="{% url 'post_detail' post.id %}" class="btn btn-sm btn-outline-secondary ms-2">
                                 <i class="bi bi-chat"></i>
                                 <span>{{ post.comments.count }}</span>
@@ -75,18 +75,9 @@
         {% endfor %}
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+
 <script>
-// Masonry инициализация
-document.addEventListener('DOMContentLoaded', function() {
-    var grid = document.querySelector('.row');
-    var msnry = new Masonry(grid, {
-        itemSelector: '.col-sm-6',
-        percentPosition: true
-    });
-});
 function showToast(message, isError = false) {
-    // Удаляем предыдущие уведомления
     const oldToasts = document.querySelectorAll('.custom-toast');
     oldToasts.forEach(toast => toast.remove());
 
@@ -105,13 +96,13 @@ function showToast(message, isError = false) {
 
     document.body.appendChild(toast);
 
-    // Автоматическое исчезновение через 5 секунд
     setTimeout(() => {
         toast.style.transition = 'opacity 0.5s';
         toast.style.opacity = '0';
         setTimeout(() => toast.remove(), 500);
     }, 5000);
 }
+
 document.querySelectorAll('.like-btn').forEach(btn => {
     btn.addEventListener('click', function(e) {
         e.preventDefault();
@@ -142,11 +133,8 @@ document.querySelectorAll('.like-btn').forEach(btn => {
     });
 });
 
-
-
 function confirmDeletePost(postId) {
     if (confirm('Вы уверены, что хотите удалить этот пост?')) {
-        // Показываем индикатор загрузки на всех кнопках удаления этого поста
         document.querySelectorAll(`[onclick="confirmDeletePost(${postId})"]`).forEach(btn => {
             btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
             btn.disabled = true;
@@ -168,10 +156,7 @@ function confirmDeletePost(postId) {
         })
         .then(data => {
             if (data.success) {
-                // Показываем уведомление об успехе
                 showToast(data.message || 'Пост удален');
-
-                // Перенаправляем или обновляем страницу
                 if (data.redirect_url) {
                     window.location.href = data.redirect_url;
                 } else {
@@ -183,21 +168,24 @@ function confirmDeletePost(postId) {
         })
         .catch(error => {
             console.error('Error:', error);
-            // Восстанавливаем кнопки
             document.querySelectorAll(`[onclick="confirmDeletePost(${postId})"]`).forEach(btn => {
                 btn.innerHTML = '<i class="bi bi-trash"></i>';
                 btn.disabled = false;
             });
-            // Показываем ошибку
             showToast(error.message, true);
         });
     }
 }
 </script>
+
 <style>
-    .pet-post-image {
-        width: 100%;
-        object-fit: cover;
+    .card {
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 </style>
 {% endblock %}

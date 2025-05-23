@@ -8,11 +8,7 @@
         {% for chat, unread_count in chats_with_unread %}
         <a href="{% url 'chat_detail' chat.id %}"
            class="list-group-item list-group-item-action chat-list-item {% if chat.id == current_chat.id %}active{% endif %} position-relative">
-            {% if unread_count > 0 %}
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{ unread_count }}
-            </span>
-            {% endif %}
+
 
             <div class="d-flex align-items-center">
                 {% for user in chat.participants.all %}
@@ -27,7 +23,20 @@
                     <div class="d-flex justify-content-between">
                         <h6 class="mb-1">
                             {% for user in chat.participants.all %}
-                                {% if user != request.user %}{{ user.username }}{% endif %}
+                                {% if user != request.user %}{{ user.username }}
+
+
+                            {% if unread_count > 0 %}
+                            <span class=" translate-middle badge rounded-pill bg-danger" style = 'margin-left: 10px; margin-top: 5px;'>
+                                {{ unread_count }}
+                            </span>
+                            {% endif %}
+
+                            {% endif %}
+
+
+
+
                             {% endfor %}
                         </h6>
                         <small class="text-muted">{{ chat.updated_at|timesince }} назад</small>
